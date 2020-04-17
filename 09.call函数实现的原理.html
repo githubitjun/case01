@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+var obj = {
+    name:"张三",
+    age:100
+}
+
+function log(name,age){
+    console.log(name,age)
+    console.log(this.name);
+    console.log(this.age);
+}
+Function.prototype.myCall = function(context){
+    context = context || window
+    context.fn = this
+    var args = [...arguments].slice(1,arguments.length)
+    var result = context.fn(...args);
+    delete context.fn
+    return result
+}
+log.myCall(obj,"路人甲",99)
+
+/*
+    总结: 1 this 的指向 指向调用者,谁调用指向谁,那么call 函数里面是
+        在里面 使用第一个参数 进行调用 这个函数然后使用arguments接受剩余的参数
+        函数里面的 this 指向的是调用者
+
+        bind 实现的原理 就是里面用到了 call 方法,但是不执行 只是将这个函数返回
+        
+*/
+</script>
+</html>

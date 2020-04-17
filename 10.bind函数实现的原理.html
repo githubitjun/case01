@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+function myFunction(name,age){
+    console.log(this.value,name,age)
+    return {
+        value:this.value,
+        name:name,
+        age:age
+    }
+}
+
+
+Function.prototype.myBind = function(context){
+
+    if(context && typeof context !== 'object'){
+        return Error('第一个参数必须为对象')
+    }
+
+    if(typeof this !== 'function'){
+        return Error('只有函数才能调用myBind函数')
+    }
+    contex = context || window;
+    var args = [...arguments].slice(1)
+    var that = this;
+   
+    var fn = function(){
+        that.call(this instanceof fn ? this : context,...args,...arguments)
+    }
+    return fn;
+}
+
+var fn1 = myFunction.myBind({value:'James'},'Kobe');
+var result = new fn1('24')
+console.log(result)
+
+
+</script>
+</html>

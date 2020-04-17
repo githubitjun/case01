@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class Father {
+            static fatherName = "这是 父class 的名称";
+            fatherNoStatic = "不是静态的名称"
+            static methed01 (){
+                console.log("这是父中的静态方法一")
+            }
+        }
+        console.log(Father.fatherName)
+        var fath = new Father()
+        console.log(fath.fatherNoStatic)
+
+        class Children extends Father {
+           constructor(){
+               super()
+               this.name = "child name"
+           }
+           get area (){
+               return this.name
+           }
+          
+            static methed01 = super.methed01()
+        }
+        console.log(Children.fatherName);
+        var child = new Children()
+        console.log(child.fatherNoStatic);
+        console.log(Children.methed01)
+        console.log(child.hasOwnProperty("fatherNoStatic"))
+        console.log(child.area)
+    </script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    function SuperType() {
+        this.color = ["red", "blue", "green"]
+    }
+    function SubChild() {
+        SuperType.call(this)
+    }
+    var instancel1 = new SubChild()
+    var instancel2 = new SubChild()
+    instancel2.color.push("block")
+    console.log(instancel1.color)
+    console.log(instancel2.color)
+
+    //寄生式继承
+    function createAnother(original) {
+        var clone = Object(original);      //  通过调用函数创建一个新对象
+        console.log(clone === original)
+        clone.sayHi = function () {
+            console.log("hi");
+        }
+        
+        return clone;
+    }
+    var person = {
+        name: "Nicholas",
+        friends: ["Shelby", "Court", "Van"]
+    }
+    var anotherPerson = createAnother(person);
+    anotherPerson.sayHi();
+</script>
+
+</html>

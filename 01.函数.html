@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    //  var b;
+    //  (function b(){
+    //     b = 20
+    //     console.log(b)
+    //  })()
+
+
+    // function* gend(){
+    //     yield "你好";
+    //     yield "世界";
+    //     return "结束了"
+    // }
+    // let hel = gend()
+    // console.log(hel.next())
+    // console.log(hel.next())
+    // console.log(hel.next())
+
+    // function* bar() {
+    //     yield 'x';
+    //     yield 'a';
+    //     yield 'b';
+    //     yield 'y';
+    // }
+
+    // for(var i of bar()){
+    //     console.log(i)
+    // }
+
+    // function* f() {
+    //     for (var i = 0; true; i++) {
+    //         var reset = yield i;
+    //         if (reset) { i = -1; }
+    //     }
+    // }
+    // var g = f();
+    // console.log(g.next())
+    // console.log(g.next())
+    // console.log(g.next())
+    // console.log(g.next())
+    // console.log(g.next(true))
+    // g.next(true) // { value: 0, done: false }
+
+    // function set(target, key, val) {
+    //     const ob = target.__ob__
+    //     if (Array.isArray(target) && key >= 0) {
+    //         target.length = Math.max(target.length, key)
+    //         target.splice(key, 1, val)
+    //         return val
+    //     }
+    //     if ((key in target && !(key in Object.prototype)) || !ob) {
+    //         target[key] = val
+    //         return val
+    //     }
+    //     if (target._isVue || (ob && ob.vmCount)) {
+    //         return val
+    //     }
+    //     defineReactive(ob.value, key, val)
+    //     ob.dep.notify()
+    //     return val
+    // }
+
+    // var arr = [1,2,3]
+    // for(const num of arr){
+    //     var sun = 0;
+    //     sun +=num;
+    // }
+    // console.log(sun)
+
+    // 方法一 使用全局变量
+    // let num = 1;
+    // function Foo(){
+    //     this.id = num++
+    // }
+    // let a = new Foo()
+    // console.log(a.id)
+    // let b = new Foo()
+    // console.log(b.id)
+
+    //方法二  使用静态属性
+    // function Foo(){
+    //     this.id = Foo.indexnum++
+    // }
+    // Foo.indexnum = 1;
+    // let a = new Foo()
+    // console.log(a.id)
+    // let b = new Foo()
+    // console.log(b.id)
+
+    //方法三 使用闭包
+    // const Foo = (function(){
+    //     let indexnum = 1
+    //     return function(){
+    //         this.id = indexnum++
+    //     }
+    // })()
+    // let a = new Foo()
+    // console.log(a.id)
+    // let b = new Foo()
+    // console.log(b.id)
+
+    // const Foo = (function(){
+    //     let indexnum = 1;
+    //     return function(){
+    //         console.log(this instanceof Foo)
+
+    //         if(this instanceof Foo){
+    //             this.id = indexnum ++;
+    //         }else {
+    //             return {
+    //                 id:indexnum ++
+    //             }
+    //         }
+    //     }
+    // })()
+    // let a = new Foo()
+    // let b = Foo()
+    // console.log(b.id)
+
+
+    // console.log(Object.is(NaN,NaN))
+    // console.log(Object.is(-0,-0))
+    // var arr= [1,2]
+    // let num = 12
+    // console.log(toString.call(arr))
+    // console.log(toString.call(num))
+
+    // var obj = {
+    //     name:'张三',
+    //     age:89
+    // }
+    // console.log(Object.keys(obj))
+
+    // console.log(Object.is({},{}))
+    // const int = 2;
+    // function square(a= int){
+    //     return a*a
+    // }
+    // console.log(square())
+
+
+    // var name = 'global';
+    // function foo() {
+    //     this.name = 'foo';
+    // }
+    // var obj = {
+    //     name: 'local',
+    //     bar: foo.bind(window),
+    //     foo: foo
+    // };
+
+    // var baz = new obj.bar();
+    // console.log(window.name); // global
+    // console.log(baz.name); // foo (new 绑定)
+    // obj.bar()
+    // console.log(window.name) // foo（显示绑定）
+    // obj.foo()
+    // console.log(obj.name) // foo (隐式绑定)
+
+
+    // 定长参数
+    // function add(a, b, c, d) {
+    //     return [
+    //         ...arguments
+    //     ].reduce((a, b) => a + b)
+    // }
+
+    // function currying(fn) {
+        
+    //     let len = fn.length
+    //     console.log(len)
+    //     let args = []
+    //     return function _c(...newArgs) {
+    //         // 合并参数
+    //         args = [
+    //             ...args,
+    //             ...newArgs
+    //         ]
+    //         // 判断当前参数集合args的长度是否 < 目标函数fn的需求参数长度
+    //         if (args.length < len) {
+    //             // 继续返回函数
+    //             return _c
+    //         } else {
+    //             // 返回执行结果
+    //             return fn.apply(this, args.slice(0, len))
+    //         }
+    //     }
+    // }
+    // let addCurry = currying(add)
+    // console.log(addCurry)
+    // let total = addCurry(1)(2)(3)(4) // 同时支持addCurry(1)(2, 3)(4)该方式调用
+    // console.log(total) // 10
+
+    // function count (num){
+    //         if(num == 0){
+    //             return 0;
+    //         }
+    //         return num + count(num-1)
+    // }
+    // console.log(count(5))
+
+    // var array = ["ABC", true, 12, -5];
+    // console.log(array.valueOf())
+
+    // var obj = {
+    //     name:"张三",
+    //     age:20,
+    //     gender:"男"
+    // }
+    // var { name:username,gender } = obj 
+    // console.log(username)
+    // console.log(gender)
+    
+    // var str = "asdfffaa"  
+    // const regex = /f/gi;  
+    // console.log(str.replace(regex,"c"))
+
+    // var dataNum = new Date("2020-04-15 12:24:00") - new Date();
+    // console.log(dataNum)
+    // dataNum = dataNum/1000
+    // setInterval(() => {
+    // dataNum--
+    // var day = parseInt(dataNum/3600/24);
+    // var hour = parseInt(dataNum/3600%24);
+    // var minu = parseInt(dataNum/60%60);
+    // var second= parseInt(dataNum%60);
+    // console.log(day + "天" + hour + "时" + minu + "分"  + second + "秒")
+    // }, 1000);
+    
+</script>
+
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // class myNumber {
+    //     static [Symbol.hasInstance](num){
+    //         return num % 2 ===0
+    //     }
+    // }
+    // var num1 = 6;
+    // console.log(num1 instanceof myNumber)
+
+    // var str = "[object Object]"
+    // console.log(str.slice(8,-1))
+    // console.log(Object.prototype.toString.bind(str)())
+
+    // var num = 1
+    // console.log(String(num))
+    //  var  numStr = String(num)
+    //  console.log(num1.valueOf());
+
+    // var  arr = [2,3,4,5,6]
+    // var arr1 = arr[Symbol.iterator]()
+    // for(var value of arr1){
+    //     console.log(value);
+        
+    // }
+    // console.log(arr1.next())
+    // console.log(arr1.next())
+    // console.log(arr1.next())
+    // console.log(arr1.next())
+    // console.log(arr1.next())
+    // console.log(arr1.next())
+    
+    // let s1 = Symbol.for("foo")
+    // let s2 = Symbol.for("foo")
+    // console.log(s1===s2)
+
+      // function timeout(ms){
+      //   return new Promise((resolve)=>{
+      //     setTimeout(()=>{
+      //       console.log("time out")
+      //       resolve()
+      //     },ms)
+      //   })
+      // }
+      // async function asyncPrint(value, ms) {
+      //   await timeout(ms);
+      //   console.log(value);
+      // }
+      // asyncPrint("hello world",3000)
+
+      // async function setOut(){
+      //   return "hello world"
+      // }
+      // setOut().then(res=>{
+      //   console.log(res)
+      // })
+
+    //   function sleep(interval) {
+    //     return new Promise(resolve => {
+    //       setTimeout(resolve, interval);
+    //     })
+    //   }
+    // // 用法
+    // async function one2FiveInAsync() {
+    //   for(let i = 1; i <= 5; i++) {
+    //     console.log(i)
+    //     await sleep(2000);
+    //   }
+    // }
+    // one2FiveInAsync();
+
+    
+    // function set(i){
+    //   console.log(i)
+    //     setTimeout(()=>{
+    //       if(++i<5){
+    //         set(i)
+    //       }
+    //     },2000)
+    // }
+    // set(0)
+    
+
+    function time(timeNum){
+      return new Promise(resolve=>{
+        setTimeout(resolve,timeNum)
+      })
+    }
+    async function logTime(){
+        for (let i = 0; i <=5; i++) {
+          console.log(i)
+          await time(2000)
+        }
+    }
+    logTime()
+</script>
+</html>

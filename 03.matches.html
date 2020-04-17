@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <ul>
+        <li id="one">1111</li>
+        <li class="two">22222</li>
+        <li >
+            <span class="box">有个span标签</span>
+        </li>
+    </ul>
+</body>
+<script>
+   var liList = document.getElementsByTagName("li")
+   for(var i =0;i < liList.length;i++){
+        // console.log(liList[i])
+       if(liList[i].matches("#one")){
+           console.log(1,liList[i])
+       }
+   }
+//    matches 的作用 找出有指定选择器的元素 
+//  事件流  事件捕获 事件目标 事件冒泡
+
+</script>
+</html>
