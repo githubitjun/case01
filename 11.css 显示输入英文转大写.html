@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" class="gettext" >
+    <hr>
+    <div>
+        <span id="one"></span><span id="two" style="font-size: 20px;"></span>
+    </div>
+</body>
+    <script>
+        let input = document.getElementsByClassName('gettext')[0]
+        input.onkeyup=function(){
+          //验证是否是英文
+
+            var pattern2 = new RegExp("[A-Za-z]+");
+            if(pattern2.test(this.value)){
+                // this.style.textTransform  = "uppercase";
+            }else {
+                this.style.textTransform  = "";
+            }
+        }
+        var str = "15456"
+        
+        console.log(str.substring(0,str.length-2));
+        console.log(str.substring(str.length-2));
+        
+        let one = document.getElementById("one")
+        console.log(one)
+        one.innerText = str.substring(0,str.length-2)
+        document.getElementById('two').innerText = str.substring(str.length-2)
+
+        
+    </script>
+</html>
