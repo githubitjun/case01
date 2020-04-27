@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            {{msg}}
+        </div>
+        <div>计算属性的值{{ foo }}</div>
+        <input type="text" v-model.number="num1" @blur="getBuler">
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    const el = new Vue({
+        el: "#app",
+        data() {
+            return {
+                msg: "你好",
+                a: 0,
+                b: 2,
+                c: 1,
+                num1: 10
+            }
+        },
+        methods: {
+            getBuler(){
+                console.log(this.num1)
+                console.log(this.getStr((this.num1).toString()))
+                console.log(this.getStr(("10269.66.33").toString()))
+                
+
+                this.num1 = this.getStr((this.num1).toString())
+            },
+            getStr(str) {
+                // str = str.replace(/^\D*(\d{0,5}(?:\.\d{0,2})?).*$/g, '$1') // 限制小数点前5位数,小数点后2位数
+                if (str.indexOf(".") === -1) {
+                    if (str.length > 5) {
+                        str = str.slice(0, 5)
+                        return str
+                    } else {
+                        return str
+                    }
+                } else {
+                    var arr1 = str.split('.')
+                    var str1 = arr1[0]
+                    var str2 = arr1[1]
+                    if (arr1[0].length > 5) {
+                        str1 = arr1[0].slice(0, 5)
+                    }
+                    if (arr1[1].length > 2) {
+                        var str2 = arr1[1].slice(0, 2)
+                    }
+                    return str1 + "." + str2
+                }
+
+            }
+        },
+        computed: {
+            foo: function () {
+                if (this.a > 0) {
+                    return this.a
+                } else {
+                    return this.b + this.c
+                }
+            }
+        },
+    })
+</script>
+<script>
+    let weiArr = {
+        "0": 1,
+        "1": 2,
+        "2": 3,
+        "length": 3
+    }
+    console.log(Array.from(weiArr))
+</script>
+
+</html>

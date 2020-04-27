@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            position: relative;
+            -webkit-animation:myfirst 6s; /* Safari and Chrome */
+        }
+        @-webkit-keyframes myfirst
+        {
+            0%   {background:red; left:0px; top:0px;}
+            50%   {background:red; left:300px; top:0px;  width: 100px;height: 100px;}
+            100%  {background:blue; left:600px; top:0px;transform: rotate(360deg);width: 200px;height: 200px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- 
+        做一个 200px 200px的盒子 背景为红色   6秒滚动  100px的距离 
+        并且盒子的大小变小一半，在逐渐变大 最后6秒后停止盒子大小最终为200px 200px  背景色为蓝色
+     -->
+     <div>
+
+     </div>
+</body>
+<script>
+    var b = 10 
+    function get (b){
+        b = 20
+    }
+    get(b)
+    console.log(b) // 输出多少
+</script>
+</html>
