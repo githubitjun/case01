@@ -1,0 +1,37 @@
+技术点:
+	01.使用crypto-js可以实现前端加密
+	02.弹框使用的是vue-layer,然后使用install 方法注册成全局组件,可以全局调用
+	03.复制粘贴使用的是clipboard.js
+	04.上传图片时将图片转换为base64的方法使用的是
+		web API 的FileReader, 对象允许Web应用程序异步读取存储在用户计算机上的文件（或原始数据缓冲区）的内容，
+		使用 File 或 Blob 对象指定要读取的文件或数据。
+		FileReader.readAsDataURL() 开始读取指定的Blob中的内容。一旦完成，result属性中将包含一个data: URL格式的Base64字符串以表示所读取文件的内容。
+		FileReader.onload 处理load事件。该事件在读取操作完成时触发。
+	
+	
+	
+	
+小程序中的坑
+	01.textarea多行输入框,该组件是原生组件,该组件的placeholder 会发生穿透, 使用cover-view 可以覆盖在原生组件之上的文本视图
+	cover-view 里面只支持 嵌套cover-view,cover-image,还可以使用button.
+	
+	
+vue 相关
+	01.Vue.observable 的使用可以实现一个简单一点的数据状态管理
+	02.vue 中的依赖注入 所提供的的属性并不是响应式的
+	
+	
+	
+重要的css 
+	01.box-orient 属性规定框的子元素应该被水平或垂直排列。
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 2; //显示两行文字
+	02.文字内容超出 显示省略号
+		overflow: hidden;
+		text-overflow: ellipsis; // 当文本溢出时显示省略号
+		white-space: nowrap; //强制一行显示 不换行
+
+js相关
+	js 最大的安全数值是 2的53次方即是 9007199254740992;这个值是16位; 还有的说法是 2的53次方 -1; 
+		在axios 中使用 处理大数据即是数字超过了安全值得方法是使用 JSONbig.parse(json) 网址:https://blog.csdn.net/weixin_44867717/article/details/104326988
+	js是一门单线程语言,js 是实现对dom 的操作如果是多线程对dom 操作就会产生冲突,所以只能是单线程 --个人理解
