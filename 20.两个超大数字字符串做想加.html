@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+  // a 和 b 都为字符串，调用add后，返回一个相加的字符串
+  // a = '12345678'
+  // b = '456789'
+  function add(a, b) {
+    // 获取各自长度
+    let i = a.length, j = b.length;
+    // 判断谁大一些
+    let len = i - j;
+    let sum, sumArr = [];
+    // 谁小，就在谁的前面补0，让两个长度相同
+    // a = '12345678' b = '00456789'
+    if (len > 0) {
+      b = appendZero(b, len);
+    } else if (len < 0) {
+      a = appendZero(a, len);
+    }
+    // 由于日常运算都是从右往左，所以，我们反转数组
+    let aArr = a.split('').reverse(), bArr = b.split('').reverse();
+    for (let m = 0; m < i; m++) {
+      // 数组长度相同，同一位置的两个元素相加
+      // 如果当前sumArr有值，说明可能是前面以为满10进了一个1
+      let c = parseInt(aArr[m]) + parseInt(bArr[m]) + (sumArr[m] || 0);   //我觉得最关键就是在这第三个数组,要将满十的余数
+                                                                          // 放进这个数组,是往数组后一个元素加进去
+      if (c > 9) {
+        // 进10后，取余数
+        sumArr[m] = c % 10;
+        // 如果进10了，则会往数组后一个元素放一个1
+        sumArr[m + 1] = parseInt(sumArr[m + 1] || 0) + 1;
+      } else {
+        sumArr[m] = c;
+      }
+    }
+    // 最后数组反转，再合并成一个字符串
+    sum = sumArr.reverse().join('');
+    return sum;
+  }
+
+  function appendZero(str, len) {
+    for (let i = 0; i < len; i++) {
+      str = '0' + str;
+    }
+    // 或者使用ES6的repeat
+    // str = '0'.repeat(len) + str;
+    return str;
+  }
+  console.log(add('12345678','456789'))
+
+</script>
+
+</html>

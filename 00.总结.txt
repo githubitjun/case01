@@ -22,7 +22,9 @@ vue 相关
 	01.Vue.observable 的使用可以实现一个简单一点的数据状态管理
 	02.vue 中的依赖注入 所提供的的属性并不是响应式的
 	03.vue 打包的时候多个css 文件会打包在一起,所以给不同的添加不同的前缀,然后通过后台的接口返回来实现
-	
+	04.vue 不能检测一下数组的变动
+		1.当你利用索引直接设置一个数组项时，例如：vm.items[indexOfItem] = newValue
+		2.当你修改数组的长度时，例如：vm.items.length = newLength
 	
 	
 重要的css 
@@ -52,4 +54,36 @@ js相关
 	04.js 中使用toFixed 方法即是Number.prototype.toFixed() 可以实现四舍五入保留两位小数 比如var numObj = 12345.6789;  numObj.toFixed(2)--得到的是"12345.68"; 而且得到的是一个字符串
 	05.js 中使用 instanceof--运算符用于检测构造函数的 prototype 属性是否出现在某个实例对象的原型链;---- 可以判断数据类型;通过字面量创建的字符串是无法使用instanceof来判断某个变量是
 		否是字符串,必须是通过 new 的方式才能判断; 但是对于复杂数据类型,对象和数组,不管哪种方式创建都可以使用 instanceof 来判断数据类型
+		
+严格模式的主要限制
+		变量必须声明后再使用
+		函数的参数不能有同名属性，否则报错
+		不能使用with语句
+		不能对只读属性赋值，否则报错
+		不能使用前缀 0 表示八进制数，否则报错
+		不能删除不可删除的属性，否则报错
+		不能删除变量delete prop，会报错，只能删除属性delete global[prop]
+		eval不会在它的外层作用域引入变量
+		eval和arguments不能被重新赋值
+		arguments不会自动反映函数参数的变化
+		不能使用arguments.callee  ---指的是当前函数本身,可以递归调用  但是已经废弃,不要使用
+		不能使用arguments.caller	---当一个函数被另外一个函数调用时, 这个则是指向的调用这个函数的函数,就是调用者  但是已经废弃,不要使用
+		禁止this指向全局对象
+		不能使用fn.caller和fn.arguments获取函数调用的堆栈
+		增加了保留字（比如protected、static和interface）
 	
+es6相关
+	01.es6模块和 commonJS 模块的差异
+		有两个重大的差异
+			CommonJS 模块输出的是一个值的拷贝，ES6 模块输出的是值的引用  输出值得时候会被缓存,可以输出的时候携程一个取值得器函数
+						
+			CommonJS 模块是运行时加载，ES6 模块是编译时输出接口。
+	02.Class 语法
+		1.class 类不存在变量提升
+		2.class 的静态方法 加上static关键字,该方法不会被实例继承,而是通过类直接调用
+		3.class 的私有属性和私有方法, 是只能在类的内部访问的属性和方法,外部不能访问
+				私有属性在属性之前加#号  私有方法在方法名之前加#号
+	03. new.target 属性 : ES6 为new命令引入了一个new.target属性，该属性一般用在构造函数之中，返回new命令作用于的那个构造函数。
+						如果构造函数不是通过new命令或Reflect.construct()调用的，new.target会返回undefined，因此这个属性可以用来确定构造函数是怎么调用的。
+		1.Class 内部调用new.target，返回当前 Class。
+		2.需要注意的是，子类继承父类时，new.target会返回子类。

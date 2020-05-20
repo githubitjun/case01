@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+  /*
+    function checkAuth(data) {
+if (data.role !== 'registered') {
+  console.log('该用户不是注册用户');
+  return false;
+}
+if (data.grade < 1) {
+  console.log("用户级别小于1");
+  return false;
+}
+if (data.job !== 'FE') {
+  console.log('该用户不是前端开发工程师');
+  return false;
+}
+if (data.type !== 'active user') {
+  console.log('该用户不是活跃用户');
+  return false;
+}
+}
+ 
+  */
+  // 使用策略模式 改写上面的代码
+  const jobList = ['FE', 'BE'];
+  var strategies = {
+    checkRole: function (value) {
+      if (value === 'registered') {
+        return true;
+      }
+      return false;
+    },
+    checkGrade: function (value) {
+      if (value >= 1) {
+        return true;
+      }
+      return false;
+    },
+    checkJob: function (value) {
+      if (jobList.indexOf(value) > 1) {
+        return true;
+      }
+      return false;
+    },
+    checkType: function (value) {
+      if (value === 'active user') {
+        return true;
+      }
+      return false;
+    }
+  };
+  // 上面是策略列表
+  var Validator = function () {
+    // Store strategies
+    this.cache = [];
+    // add strategy to cache
+    this.add = function (value, method) {
+      this.cache.push(function () {
+        return strategies[method](value);
+      });
+    };
+    // check all strategies
+    this.check = function () {
+      for (let i = 0; i < this.cache.length; i++) {
+        let valiFn = this.cache[i];
+        var data = valiFn();
+        if (!data) {
+          return false;
+        }
+      }
+      return true;
+    };
+  };
+  var compose1 = function () {
+    var validator = new Validator();
+    const data1 = {
+      role: 'register',
+      grade: 3,
+      job: 'FE',
+      type: 'active user'
+    };
+    validator.add(data1.role, 'checkRole');
+    validator.add(data1.grade, 'checkGrade');
+    validator.add(data1.type, 'checkType');
+    validator.add(data1.job, 'checkJob');
+    const result = validator.check();
+    return result;
+  };
+  console.log(compose1())
+
+  var compose2 = function () {
+    var validator = new Validator();
+    const data2 = {
+      role: 'registered',
+      grade: 3,
+    };
+    validator.add(data2.role, 'checkRole');
+    validator.add(data2.grade, 'checkGrade');
+
+    const result = validator.check();
+    return result;
+  };
+  console.log(compose2());
+
+</script>
+
+</html>

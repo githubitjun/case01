@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+  /**
+   * 实现一个Person类，类里有eat、work、sleep三个方法，支持如下调用方式eat().work(10).sleep(5)
+    打印结果为
+    eat()
+    eat()->work(10) //等待10后打印
+    eat()->work(10)->sleep(5) //等待5秒后打印
+  */
+  'use strict'
+  class Person {
+    #queue = []
+    #timeout = 0
+    #timer = null
+    #start = new Date().getTime()
+    constructor() { }
+    #run = async () => {
+      clearTimeout(this.#timer)
+      this.#timer = null
+      return await new Promise(resolve => {
+        this.#timer = setTimeout(() => {
+          console.log(this.#queue)
+          console.log(this.#timeout)
+          console.log(new Date().getTime() - this.#start)
+          resolve()
+        }, this.#timeout * 1000)
+      })
+    }
+    eat = food => {
+      this.#queue.push(food)
+      return this
+    }
+    sleep = async timeout => {
+      this.#timeout = timeout
+      await this.#run(timeout)
+    }
+    work = timeout => {
+      this.#timeout = timeout
+      this.#run(timeout)
+      return this
+    }
+  }
+
+  const person1 = new Person()
+  const person2 = new Person()
+
+  person1.eat('呵呵').work(1)
+  person2.eat('哈哈').work(1).sleep(2)
+
+</script>
+
+</html>
