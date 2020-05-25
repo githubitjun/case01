@@ -25,6 +25,19 @@ vue 相关
 	04.vue 不能检测一下数组的变动
 		1.当你利用索引直接设置一个数组项时，例如：vm.items[indexOfItem] = newValue
 		2.当你修改数组的长度时，例如：vm.items.length = newLength
+	05.在vue 3.0 构建的项目里面要关闭eslint 使用的方式是如下代码:
+		module.exports = {
+		  /**
+		   * 关闭eslint
+		   */
+		  lintOnSave: false,
+		  devServer: {
+			overlay: {
+			  warning: false,
+			  errors: false
+			}
+		  }
+		};
 	
 	
 重要的css 
@@ -54,6 +67,15 @@ js相关
 	04.js 中使用toFixed 方法即是Number.prototype.toFixed() 可以实现四舍五入保留两位小数 比如var numObj = 12345.6789;  numObj.toFixed(2)--得到的是"12345.68"; 而且得到的是一个字符串
 	05.js 中使用 instanceof--运算符用于检测构造函数的 prototype 属性是否出现在某个实例对象的原型链;---- 可以判断数据类型;通过字面量创建的字符串是无法使用instanceof来判断某个变量是
 		否是字符串,必须是通过 new 的方式才能判断; 但是对于复杂数据类型,对象和数组,不管哪种方式创建都可以使用 instanceof 来判断数据类型
+	06.当访问一个对象中不确定的是否有的属性时,会报错,但是使用 ?. 就会返回undefined,不会报错,对象函数同理使用  比如console.log(flower.species?.lily) // 输出 undefined 
+	07.globalThis 全局对象 JavaScript 可以在不同环境中运行，比如浏览器或者 Node.js。浏览器中可用的全局对象是变量 window，但在 Node.js 中是一个叫做 global 的对象。
+		为了在不同环境中都使用统一的全局对象，引入了 globalThis 。
+		// 浏览器
+		window == globalThis // true
+		// node.js
+		global == globalThis // true
+	08.使用<input type="file" name="file" @change="setFile" /> 上传图片时,如果第二次选择的是和前一张一模一样的照片时,change 事件不会触发,
+		这个时候就要使用 e.srcElement.value = ""//及时清空 就可以解决
 		
 严格模式的主要限制
 		变量必须声明后再使用
@@ -87,3 +109,6 @@ es6相关
 						如果构造函数不是通过new命令或Reflect.construct()调用的，new.target会返回undefined，因此这个属性可以用来确定构造函数是怎么调用的。
 		1.Class 内部调用new.target，返回当前 Class。
 		2.需要注意的是，子类继承父类时，new.target会返回子类。
+	04.Promise.allSettled  等待多个promise 返回结果时,我们可以使用promise.all 方法, 但是其中的一个请求失败了就会抛出错误,然而有时候我们希望某个请求失败后
+		其他请求的结果能够正常返回. 我们就可以使用Promise.allSettled. 成功的 promise 将返回一个包含 status 和 value 的对象，失败的 promise 将返回一个包含 status 和 reason 的对象。
+
