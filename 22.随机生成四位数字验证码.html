@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+    function createCode(){
+      var area = '1234567890QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm'
+      codeText=""
+      for(var i = 0; i<4;i++){
+        let ran = Math.round(Math.random()*(61-0)+0)
+        var char = area.charAt(ran)
+        codeText +=char
+      }
+      return codeText
+    }
+    console.log(createCode())
+
+</script>
+</html>

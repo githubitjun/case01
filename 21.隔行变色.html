@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    li {
+      height: 40px;
+    }
+  </style>
+</head>
+<body>
+    <ul>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li>5</li>
+      <li>6</li>
+      <li>7</li>
+    </ul>
+</body>
+<script>
+  var liList =  document.querySelectorAll('li')
+  for (let i = 0; i < liList.length; i++) {
+      if (i%2 === 0) {
+        liList[i].style.backgroundColor = 'pink'
+        liList[i].onmouseenter  = function(){
+          liList[i].style.backgroundColor = 'red'
+        }
+        liList[i].onmouseleave = function(){
+          liList[i].style.backgroundColor = 'pink'
+        }
+      }else {
+        liList[i].style.backgroundColor = 'green'
+        liList[i].onmouseenter  = function(){
+          liList[i].style.backgroundColor = 'red'
+        }
+        liList[i].onmouseleave = function(){
+          liList[i].style.backgroundColor = 'green'
+        }
+      }
+  }
+
+</script>
+</html>
