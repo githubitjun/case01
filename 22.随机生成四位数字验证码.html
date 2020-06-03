@@ -1,25 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
+
 <body>
 
 </body>
 <script>
-    function createCode(){
-      var area = '1234567890QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm'
-      codeText=""
-      for(var i = 0; i<4;i++){
-        let ran = Math.round(Math.random()*(61-0)+0)
-        var char = area.charAt(ran)
-        codeText +=char
-      }
-      return codeText
+  function createCode() {
+    var area = '1234567890QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm'
+    codeText = ""
+    for (var i = 0; i < 4; i++) {
+      let ran = Math.round(Math.random() * (61 - 0) + 0)
+      var char = area.charAt(ran)
+      codeText += char
     }
-    console.log(createCode())
+    return codeText
+  }
+  console.log(createCode())
 
+
+  // 通用的柯里化例子
+  // 原函数
+  function add(a, b, c) {// 函数可处理的参数个数为3
+    return a + b + c;
+  }
+  // 通用的柯里化函数
+  function createCurry(func, args) {
+    // 获取被柯里化的函数的参数个数，即func实际可以处理的参数个数，这里是3
+    var arity = func.length;
+    // console.log(func.length);
+
+    // 用来存储柯里化时需要被复用的参数
+    var args = args || [];
+
+    return function () {
+      // [].slice.call(arguments)等价于arguments.slice
+      // [].slice.call(arguments)的作用是将arguments这个类数组对象转为数组
+      var _args = [].slice.call(arguments);
+      console.log(_args);
+
+      // [].push.apply(_args, args)等价于_args.push(args)
+      [].push.apply(_args, args);
+      
+      // 如果参数个数小于最初的func.length，则递归调用，继续收集参数
+      if (_args.length < arity) {
+        return createCurry.call(this, func, _args);
+      }
+      console.log(_args)
+      // 参数收集完毕，则执行func
+      return func.apply(this, _args);
+    }
+  }
+  // 将原函数柯里化
+  var _add = createCurry(add)
+  console.log(_add(1)(2)(3));
+
+
+  // function currying(fn, ...rest1) {
+  //   return function (...rest2) {
+  //     return fn.apply(null, rest1.concat(rest2))
+  //   }
+  // }
+  // function add(a, b, c) {
+  //   return console.log(a + b + c);
+  // }
+  // let curryingShowMsg1 = currying(add, 1)
+  // curryingShowMsg1(1, 2)
 </script>
+
 </html>
