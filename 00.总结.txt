@@ -140,3 +140,10 @@ es6相关
 	04.Promise.allSettled  等待多个promise 返回结果时,我们可以使用promise.all 方法, 但是其中的一个请求失败了就会抛出错误,然而有时候我们希望某个请求失败后
 		其他请求的结果能够正常返回. 我们就可以使用Promise.allSettled. 成功的 promise 将返回一个包含 status 和 value 的对象，失败的 promise 将返回一个包含 status 和 reason 的对象。
 
+人脸识别: navigator.mediaDevices.getUserMedia 调起摄像头的API , tracking.js 和 face-api.js 可以实现人脸信息的采集
+		01.必须是https 的协议才能在网络环境中打开摄像头,file 协议只能在本地打开摄像头
+		02.ios 中只支持safafi 浏览器打开摄像头,其他浏览器使用调用手机相机拍照的功能
+		
+		
+		
+		

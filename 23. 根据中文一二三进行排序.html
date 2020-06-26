@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+  // 方式一
+  // var mapObj = { "一等奖":1,"二等奖":2,"三等奖":3 }
+  // var list = ["三等奖","一等奖","二等奖"].sort((a,b)=> mapObj[a]-mapObj[b] )
+  // console.log(list);
+
+  // 方式二
+  //  var mapObj = { "一等奖":0,"二等奖":1,"三等奖":2 }
+  //  var list = ["三等奖","一等奖","二等奖"]
+  //   var newList = []
+  //   for(let i =0,len=list.length;i<len;i++){
+  //       var data = list[i]
+  //       console.log(mapObj[data],data)
+  //       newList[mapObj[data]] = data
+  //   }
+  //   console.log(newList)
+
+  // 数组扁平化
+  // var arr = [1,2,[3,4,[5,6]]]
+  // var newArr = []
+  // function myFlat(arr){
+  //   if (!Array.isArray(arr)) {
+  //       alert('您传入不是一个数组')
+  //       return
+  //   }
+  //   for (const item of arr) {
+  //     if (Array.isArray(item)) {
+  //       myFlat(item)
+  //     }else {
+  //       newArr.push(item)
+  //     }
+  //   }
+  //   return newArr
+  // }
+  // console.log(myFlat(arr))
+
+  // function deepClone(obj) {
+  //   if (typeof obj !== 'object' || !obj) {
+  //     return obj
+  //   }
+  //   let newObj = Array.isArray(obj) ? [] :{}
+  //   for (const item in obj) {
+  //     if (obj.hasOwnProperty(item)) {
+  //         newObj[item] = typeof obj[item] === 'object' ? deepClone(obj[item]) : obj[item]
+  //     }
+  //   }
+  //   return newObj
+  // }
+  // console.log(deepClone({a:[1,2],b:{c:3}}))
+
+
+</script>
+
+</html>
