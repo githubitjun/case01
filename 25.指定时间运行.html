@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+  /*
+    1.写一个 mySetInterVal(fn, a, b),每次间隔 a,a+b,a+2b 的时间，然后写一个 myClear，停止上面的 mySetInterVal
+  */
+  let _currentInyterval = null
+  function mySetInterVal(fn, a, b) {
+    let _interval = [a, a + b, a + 2 * b]
+    
+    let _index = 0
+    let _mySetInterVal = function (_t) {
+      if (_index < _interval.length) {
+        clearInterval(_currentInyterval)
+        _currentInyterval = setInterval(() => {
+          fn()
+          _index++
+          _mySetInterVal(_interval[_index])
+        }, _t)
+        return _currentInyterval
+      } else {
+        _index = 0
+        _mySetInterVal(_interval[_index])
+      }
+    }
+    _mySetInterVal(_interval[_index])
+    return _currentInyterval
+  }
+  const myCalear = function (_interval) {
+    clearInterval(_interval)
+  }
+  // let interval = mySetInterVal(()=>{
+  //   console.timeEnd('定时器')
+  //   console.time('定时器')
+
+  // },1000,1000)
+  // setTimeout(()=>{
+  //   myCalear(_currentInyterval)
+  //   console.log('清除了');
+    
+  // },9000)
+  /*
+    思路分析:将三种时间放入一个数组,然后声明一个变量,每执行一次就将这个变量加一,将这个变量与数组的长度比较,每次进行递归的时候清除上一次
+    的定时器,也就是说这个定时器执行一次的时候,会在里面进行递归,递归第二次进行定时器开启之前就会清除上一次的定时器, 
+    清除定时器的函数,主要是将这个定时器id返回出来,然后进行清除
+  
+  */
+  // let _currentInyterval = null
+  function mySetInterVal1(fn, a, b) {
+    
+    let _index = 0
+    let _mySetInterVal = function () {
+      if (_index < 3) {
+        _currentInyterval = setTimeout(() => {
+          fn()
+          _index++
+          _mySetInterVal()
+        }, a + _index * b)
+      } else {
+        _index = 0
+        _mySetInterVal()
+      }
+      return _mySetInterVal
+    }
+    _mySetInterVal()
+    return _currentInyterval
+  }
+  let myclear = function (timeid) {
+    clearTimeout(timeid)
+  }
+  // let timeid = mySetInterVal1(() => {
+  //   console.timeEnd('定时器')
+  //   console.time('定时器')
+  // }, 1000, 1000)
+  // setTimeout(function(){
+  //   myclear(_currentInyterval)
+  //   console.log('清除了');
+    
+  // },9000)
+
+  // 第三种方式
+  function mySetInterVal(fn, a, b) {
+    this.a = a;
+    this.b = b;
+    this.time = 0;
+    this.handle = -1;
+    this.start = () => {
+        if (this.time < 3) {
+          this.handle = setTimeout(() => {
+            fn();
+            this.time++;
+            this.start();
+        }, this.a + this.time * this.b);
+      }else {
+        this.time = 0
+        this.start()
+      }
+    }
+    this.stop = () => {
+        clearTimeout(this.handle);
+        this.time = 0;
+    }
+  }
+  var a = new mySetInterVal(() => {
+    console.timeEnd('定时器')
+    console.time('定时器')
+  },1000, 1000 );
+  a.start();
+  setTimeout(function(){
+    a.stop();
+    console.log('清除了');
+  },15000)
+</script>
+
+</html>

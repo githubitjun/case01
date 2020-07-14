@@ -10,13 +10,13 @@
     
 </body>
 <script>
-    // class myNumber {
-    //     static [Symbol.hasInstance](num){
-    //         return num % 2 ===0
-    //     }
-    // }
-    // var num1 = 6;
-    // console.log(num1 instanceof myNumber)
+    class myNumber {
+        static [Symbol.hasInstance](num){
+            return num % 2 ===0
+        }
+    }
+    var num1 = 6;
+    console.log(num1 instanceof myNumber)
 
     // var str = "[object Object]"
     // console.log(str.slice(8,-1))
@@ -80,28 +80,28 @@
     // one2FiveInAsync();
 
     
-    // function set(i){
-    //   console.log(i)
-    //     setTimeout(()=>{
-    //       if(++i<5){
-    //         set(i)
-    //       }
-    //     },2000)
-    // }
-    // set(0)
+    function set(i){
+      console.log(i)
+        setTimeout(()=>{
+          if(++i<5){
+            set(i)
+          }
+        },2000)
+    }
+    set(0)
     
 
-    function time(timeNum){
-      return new Promise(resolve=>{
-        setTimeout(resolve,timeNum)
-      })
-    }
-    async function logTime(){
-        for (let i = 0; i <=5; i++) {
-          console.log(i)
-          await time(2000)
-        }
-    }
-    logTime()
+    // function time(timeNum){
+    //   return new Promise(resolve=>{
+    //     setTimeout(resolve,timeNum)
+    //   })
+    // }
+    // async function logTime(){
+    //     for (let i = 0; i <=5; i++) {
+    //       console.log(i)
+    //       await time(2000)
+    //     }
+    // }
+    // logTime()
 </script>
 </html>

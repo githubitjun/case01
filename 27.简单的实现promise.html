@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+  class PromiseNew {
+    constructor(execuort) {
+      this.state = 'pending'
+      this.value = undefined
+      this.reason = undefined
+      let resolve = (value) => {
+        if (this.state === 'pending') {
+          this.state = 'fulfilled'
+          this.value = value
+        }
+      }
+      let reject = (reason) => {
+        if (this.state === 'pending') {
+          this.state = 'rejected'
+          this.reason = reason
+        }
+      }
+
+      try {
+        execuort(resolve, reject)
+      } catch (err) {
+        reject(err);
+      }
+    }
+    then(onFulfilled, onRejected){
+        if (this.state === 'fulfilled') {
+          let x = onFulfilled(this.value);
+        };
+        if (this.state === 'rejected') {
+          let x = onRejected(this.reason);
+        };
+      }
+  }
+
+  let p1 =new PromiseNew((resolve,reject)=>{
+      console.log(1);
+      resolve(2)
+  })
+  p1.then(res=>{
+    console.log(res);
+  })
+  // 只能简单的模拟方法,并不能实现异步操作
+</script>
+
+</html>

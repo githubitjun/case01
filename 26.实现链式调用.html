@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+<script>
+  // 实现链式调用最重要的就是将实例对象返回,在构造函数的原型上面添加这个方法,这个方法里面将实例对象返回
+  function Dog(){
+    console.log('初始化');
+    
+  }
+  Dog.prototype.method = function(value){
+      console.log(value);
+      return this
+  }
+  const d1 = new Dog()
+  d1.method('第一次调用').method('第二次调用').method('第三次调用')
+</script>
+</html>
