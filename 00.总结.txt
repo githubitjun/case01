@@ -15,6 +15,11 @@
 	07.安全验证 签名机制
 		获取当前时间戳,发送请求的时候发送到服务器,同时加上Tag 变量,用时间+Tag 进行加密,传输到服务器验证,Tag,Tag 在登录的时候接口返回的,和token 是联系起来的,
 		由于本地时间和服务器时间存在不同,所以会 由服务器下发一个 时间差值,然后由本地时间减去 时间差值,就能得到准确时间.
+	08.jsp中在使用图片验证码的弹框验证码提交的时候,在火狐浏览器和 微信内置浏览器会在第一次的弹框认证的时候不成功,主要是因为浏览器不一样,每个浏览器的加载速度不一样,导致验证码的session和用户的
+		session 不一样,在页面没有完全加载成功,就已经发了获取验证码的请求,并保存在了session, 然后等页面完全加载成功后,就是另外一个session,session不一样(还有可能的原因是:浏览器认为img的src属性直接
+		请求图片,是不安全的,所以会拦截,然后会再加载一次一模一样的请求了就请求了两次接口,显示的是第一次,所以不行)
+		解决办法:使用window.onload 在页面完全加载成功之后再发送请求获取验证码,或者使用setTimeout, 或者先发一个ajax 请求,然后再显示验证码, 最好的解决办法,就是不使用img的src属性直接请求加载图片,
+		而是使用ajax 请求获取到base64 的图片再显示上去. 这样浏览器就不会再拦截
 	
 小程序中的坑
 	01.textarea多行输入框,该组件是原生组件,该组件的placeholder 会发生穿透, 使用cover-view 可以覆盖在原生组件之上的文本视图
@@ -65,6 +70,26 @@ vue 相关
 		query 传参的时候路由可以使用path 和name, 参数会显示在路径上面,刷新页面参数不会丢失
 		params 传参的时候路由只能使用 name, 参数不会显示在路径上面,刷新页面参数会丢失
 	07.seo: seo 实际上就是搜索引擎优化,是一种通过特定的方法优化自己的网站的自然搜索的排名,让网站更加容易被搜索引擎接受,自己的话说就是别人搜索网站的时候,能更加让自己的网站排名靠前
+	08.this.$set(target,key,value) 
+		01. 首先会先判断 target 的数据类型, 如果是基本数据类型,不是数组和对象,将会抛出警告
+		02. 如果target为数组且key 为有效的数组的key 时, 将数组的长度设置为target.length 和 key 值中最大的那一个,然后调用在vue 中重写的的splice 添加元素
+		03. 如果属性key 存在于target 对象中,且不是 Object.prototype上面的属性,表明这是在修改target 对象属性的key值,此时就直接赋值
+		04. 判断 target ,当target 为vue 实例,或者是根数据对象时,在开发环境下抛错
+		05. 当一个数据为响应式时，vue会给该数据添加一个__ob__属性，因此可以通过判断target对象是否存在__ob__属性来判断target是否是响应式数据，当target是非响应式数据时，
+			我们就按照普通对象添加属性的方式来处理；当target对象是响应式数据时，我们将target的属性key也设置为响应式并手动触发通知其属性值的更新；
+	09.在vuex 中,比如购物车增加物品数量后,跳转到提交订单页面,刷新页面会存在vuex 中数据丢失的问题,解决办法:
+		01.用sessionstorage 或者 localstorage 存储数据
+		02.引入插件 vuex-persist: 1安装 npm install --save vuex-persist 2.引入 import VuexPersistence from 'vuex-persist' 
+			3.配置:const vuexLocal = new VuexPersistence({
+						storage: window.localStorage
+					})
+			4引入进vuex插件 :
+				const store = new Vuex.Store({
+							  state: { ... },
+							  mutations: { ... },
+							  actions: { ... },
+							  plugins: [vuexLocal.plugin]
+							}) 
 	
 重要的css 
 	01.box-orient 属性规定框的子元素应该被水平或垂直排列。
@@ -86,6 +111,8 @@ vue 相关
 	05.  word-wrap: break-word; 在长单词或 URL 地址内部进行换行。
 		word-break: break-all;  允许在单词内换行。
 	06.legend 标签
+	07.pointer-events:none;当给元素设置了 pointer-events:none; 的属性的时候,元素永远不会成为鼠标事件的target.
+       意思就是说 给元素注册的点击等一系列其他事件都没有效果
 
 js相关
 	01.js最大的安全数值是 2的53次方即是 9007199254740992;这个值是16位; 不包括两端,所以准确的是说最大的值是 2的53次方 -1; 
@@ -147,6 +174,9 @@ es6相关
 		01.必须是https 的协议才能在网络环境中打开摄像头,file 协议只能在本地打开摄像头
 		02.ios 中只支持safafi 浏览器打开摄像头,其他浏览器使用调用手机相机拍照的功能
 		
-		
-		
+在h5 中的video 的兼容问题: 想要实现是 视频的控制, 由于浏览器会劫持视频播放, 所以在播放的时候使用的是浏览器的的播放器, 
+						解决方式使用 h5 同层播放器的属性,禁止了浏览器的全屏,横屏的按钮  x5-video-player-type="h5-page", 使用这种同层播放器就可以实现dmo 和 video 在同一个层级上,
+						弹出来的dmo 元素就可以显示在播放器的上面
+	
+设计之窗的地址:  www.333cn.com
 		
