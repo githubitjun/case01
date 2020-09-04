@@ -31,6 +31,9 @@
 小程序的优化操作
 	01.在首页的时候,使用了本地缓存,将数据缓存起来,下一次进来的时候直接取,等接口返回回来之后更新数据和缓存
 	02.在首页的时候,请求数据时是在第一个数据请求成功以后,再请求第二个数据,使用的是new Promise, 将resolve 作为参数传递进 请求数据的函数,也就是回调的方式
+	03.在鲲鹏管控小程序中使用了一个展示数据的树状展开的数据表格, 数据并不是树状的是按需加载, 意思是先获取的就是一维数组,然后点击再加载第二级的数据. 使用到一个重要的技术点就是表格的内容部分
+		的展示数据先写一行,然后循环, 再递归组件child 中的数据,( 就是要使用递归组件 ) child 中的数据是按需加载之后获取的数据再 组合起来的数据, 自己做一个是否展开的数据标记项
+
 	
 培训小程序
 	01.学历提升、技能设计、管理考证等产品的专业介绍、报考问答、教师风采、班型介绍等详细信息一应俱全。
@@ -170,13 +173,15 @@ es6相关
 	04.Promise.allSettled  等待多个promise 返回结果时,我们可以使用promise.all 方法, 但是其中的一个请求失败了就会抛出错误,然而有时候我们希望某个请求失败后
 		其他请求的结果能够正常返回. 我们就可以使用Promise.allSettled. 成功的 promise 将返回一个包含 status 和 value 的对象，失败的 promise 将返回一个包含 status 和 reason 的对象。
 
-人脸识别: navigator.mediaDevices.getUserMedia 调起摄像头的API , tracking.js 和 face-api.js 可以实现人脸信息的采集
+人脸识别: navigator.mediaDevices.getUserMedia 调起摄像头的API , tracking.js 和 face-api.js,clmtrackr.js 可以实现人脸信息的采集
 		01.必须是https 的协议才能在网络环境中打开摄像头,file 协议只能在本地打开摄像头
 		02.ios 中只支持safafi 浏览器打开摄像头,其他浏览器使用调用手机相机拍照的功能
 		
 在h5 中的video 的兼容问题: 想要实现是 视频的控制, 由于浏览器会劫持视频播放, 所以在播放的时候使用的是浏览器的的播放器, 
 						解决方式使用 h5 同层播放器的属性,禁止了浏览器的全屏,横屏的按钮  x5-video-player-type="h5-page", 使用这种同层播放器就可以实现dmo 和 video 在同一个层级上,
 						弹出来的dmo 元素就可以显示在播放器的上面
+						
+APP 和h5 的交互:使用 DSBridge 作为桥接工具:git 地址: https://github.com/wendux/DSBridge-Android/blob/master/readme-chs.md 
 	
 设计之窗的地址:  www.333cn.com
 		
