@@ -1,0 +1,35 @@
+01. 在vue 中使用keep-alive  可以实现状态保持,  使用include 可以实现指定的路由项进行缓存
+	activated 生命周期钩子 被 keep-alive 缓存的组件激活时调用
+	deactivated 生命周期钩子 被 keep-alive 缓存的组件停用时调用 
+	
+	beforeRouteLeave 路由钩子在 离开当前组件页面时触发路由钩子
+	
+02. 在 vue-cli 3.0 搭建的项目中,使用axios 可以请求本地的静态文件, 但是这些静态文件要放在 public 的目录下面才可以
+
+03. 在vue 中实现页面换肤, 先将默认需要换的css 提取成一个单独的css 文件, 然后 配置一个 对应的js 文件, 写好主题配置, 和 用key 在默认主题中进行匹配, 然后替换 value 值
+	然后在 换肤操作界面中使用 axios 将默认的css文件 请求过来,  利用事件, 和配置好的 js 文件, 首先将样式替换成关键字, 再将关键字替换成样式, 然后将处理过的 css 写在style ,再挂载在 document 上
+	先创建一个 style,  将css 设置为内容, 添加id , 根据id 获取标签,  oldEl ? document.head.replaceChild(styleDom, oldEl) : document.head.appendChild(styleDom)
+	如果存在使用 替换子元素的方式, 不存在就直接添加子元素
+	
+04. vue 中在页面上加载js 插件使用的方式是 require('tracking/build/tracking-min.js')
+	<script>
+	require('tracking/build/tracking-min.js')
+	
+	export default {
+	}
+	</script>
+	
+05./**
+	 * 导航守卫的执行的先后顺序 
+	 * 先是 全局的前置路由守卫 beforeEach ----> 然后是路由独享的守卫 beforeEnter -----> 然后是组件内的 beforeRouteEnter 当前组件不能
+	 * 访问到this 实例 可以使用 next(vm=>{}) 回调
+	 * ----> 然后就是全局的解析守卫 beforeResolve -----> 然后是全局的后置路由守卫 afterEach ---> dom更新 ---> 最后会是 beforeRouteEnter 守卫
+	 * 中使用的 next(vm=>{}) 的回调函数执行, 创建好的组件实例会作为回调函数的参数传入
+	 * 
+	 * 当组件失活时会调用  组件内的 beforeRouteLeave 导航离开该组件时调用
+	 * 
+	 * 还有一个组件内的守卫 beforeRouteUpdate 钩子, 会在当前组件被复用时调用, 一般是在动态路由中的组件中会被触发, 此时该钩子会执行
+	 * 然后该组件内的其它钩子,除了第一次会调用时, 在动态路由一直切换当前组件时不会再被 调用, 只有 当前组件内的钩子
+	 * beforeRouteUpdate 和 全局的钩子会被调用 
+	 * 
+	 */
