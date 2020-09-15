@@ -1,0 +1,90 @@
+<template>
+<!-- 参考地址链接 https://www.jianshu.com/p/b6ec99ff1cb5 -->
+  <div>
+    <div> {{ count }} </div>
+    <button @click="addCount"> 点击++ </button> <br> <div> {{ dubleCount }} </div>
+    <br>
+    <input type="text" v-model="obj.age">
+    <div> {{ obj.age }} </div>
+    <br>
+    <input type="text" v-model="name">
+    <div> {{ name }} </div>
+    <br>
+    <input type="text" v-model="arrData[0]">
+    <div>{{ arrData[0] }}</div>
+  </div>
+</template>
+
+<script>
+import { ref, reactive, toRefs, computed, watch, getCurrentInstance } from 'vue'
+export default {
+  setup() {
+    const count = ref(11) // 定义响应式数据
+    const addCount = () =>{
+      count.value++
+    }
+
+    const objData = {
+      name: '张三',
+      age: 90,
+      skill: '搬家'
+    }
+    const obj = reactive(objData) // 定义响应式数据对象
+    // let { name } = obj 这样解构出来的 name 不是响应式的  因为通过 reactive 创建的是可观察的对象,内部的属性本身并不是可观察的,
+    // 而是通过proxy 代理实现的读写观察, 如果将这些属性解构, 这些属性就不再通过原对象的代理来访问了, 也就无法再观察
+    let {  name } = toRefs(obj)  // 这样解构出来的name 是响应式的
+
+    const arrData = reactive([1,2,3])
+
+    // 这是计算属性
+    const dubleCount = computed(()=>{
+      return count.value * 2
+    })
+    // 这是侦听器 在对 对象的属性进行监听的时候应该使用的是obj.name, 而不能监听到解构出来的name
+    // watch 接受两个参数, 第一个是函数, 将你要监听的 值进行返回, 第二个也是函数,能够获取到变化后的值
+    // watch 不能直接监听整个对象 obj
+    const countWatch = watch(()=>{
+           return count.value 
+    },(newCount,oldCount)=>{
+      console.log('count变成了'+ newCount,oldCount);
+    })
+    // 使用 watch 监听多个值
+    // 第一个参数传递一个数组 , 数组元素是函数 将你要监听的 变量返回
+    // 第二个参数是一个函数, 函数的参数就是数组了, 第一个参数数组是新的值, 第二个参数数组是旧值
+    const objWatch = watch([()=> obj.name,()=> obj.age],([newObjName,newObjAge],[oldObjName,oldObjAge])=>{
+      console.log('objname'+ newObjName,oldObjName);
+      console.log('objage'+ newObjAge,oldObjAge);
+    })
+
+    // 同样不能直接监听整个数组
+    const arrWatch = watch(()=> { return arrData },(newArr)=>{
+      console.log('11');
+      console.log(newArr);
+    })
+
+    const { ctx } = getCurrentInstance() // 使用这个来代替vue2.0 中使用的 this 
+    console.log(ctx);
+    // 新增的生命周期钩子
+    // onRenderTracked 生命周期钩子函数表示组件已经渲染. 组件首次渲染经历过程为 onRenderTracked --> onBeforeMount --> onBeforeMounted
+    // onErrorCaptured(err,vm,info)生命周期钩子表示捕获子孙组件中的发生错误时的异常。err:错误对象 vm:发生错误的vuez组件实例
+       // info:Vue特定错误信息，比如发生错误的生命周期
+    //onRenderTriggered组件更新时会触发此钩子函数。触发生命周期钩子函数过程为
+    // onRenderTriggered->onRenderTracked->onBeforeUpdate->onUpdated
+
+    return {
+      count,
+      obj,
+      addCount,
+      name,
+      dubleCount,
+      countWatch,
+      objWatch,
+      arrData,
+      arrWatch
+    }
+  }
+}
+</script>
+
+<style>
+</style>

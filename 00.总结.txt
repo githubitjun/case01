@@ -116,7 +116,8 @@ vue 相关
 	06.legend 标签
 	07.pointer-events:none;当给元素设置了 pointer-events:none; 的属性的时候,元素永远不会成为鼠标事件的target.
        意思就是说 给元素注册的点击等一系列其他事件都没有效果
-
+	08.text-indent:20px; 将段落的第一行缩进20像素, 首行缩进
+	
 js相关
 	01.js最大的安全数值是 2的53次方即是 9007199254740992;这个值是16位; 不包括两端,所以准确的是说最大的值是 2的53次方 -1; 
 		在axios 中使用 处理大数据即是数字超过了安全值得方法是使用 JSONbig.parse(json) 网址:https://blog.csdn.net/weixin_44867717/article/details/104326988
