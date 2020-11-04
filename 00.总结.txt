@@ -20,6 +20,7 @@
 		请求图片,是不安全的,所以会拦截,然后会再加载一次一模一样的请求了就请求了两次接口,显示的是第一次,所以不行)
 		解决办法:使用window.onload 在页面完全加载成功之后再发送请求获取验证码,或者使用setTimeout, 或者先发一个ajax 请求,然后再显示验证码, 最好的解决办法,就是不使用img的src属性直接请求加载图片,
 		而是使用ajax 请求获取到base64 的图片再显示上去. 这样浏览器就不会再拦截
+	09.原生中好用的放大图片的插件 viewer.js 兼容pc 和 移动
 	
 小程序中的坑
 	01.textarea多行输入框,该组件是原生组件,该组件的placeholder 会发生穿透, 使用cover-view 可以覆盖在原生组件之上的文本视图
@@ -186,3 +187,4 @@ APP 和h5 的交互:使用 DSBridge 作为桥接工具:git 地址: https://githu
 	
 设计之窗的地址:  www.333cn.com
 		
+网站模板:http://sc.chinaz.com/moban/index.html

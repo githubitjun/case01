@@ -34,7 +34,7 @@ Function.prototype.myBind = function(context){
     var that = this;
    
     var fn = function(){
-        that.call(this instanceof fn ? this : context,...args,...arguments)
+        that.call(context,...args,...arguments)
     }
     return fn;
 }
