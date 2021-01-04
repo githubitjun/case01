@@ -1,0 +1,181 @@
+/*页面重置样式*/
+*{
+    margin: 0;
+    padding: 0;
+    font-family: "PingFang SC";
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    outline: none;
+    -webkit-text-size-adjust: none!important;/* ios横屏字体放大 */
+    -webkit-overflow-scrolling: touch; 
+  }
+  *:not(input,textarea) {
+    -webkit-user-select: none!important;
+    -webkit-tap-highlight-color: rgba(200, 200, 200, 0);
+  }
+  html,
+  body {
+    margin: 0 auto;
+    background: #ffffff;
+    font-size: 16px;
+  }
+  body{
+    max-width: 1600px;
+    position: relative;
+    margin: 0 auto;
+  
+  }
+  img {
+    border: none;
+    border: 0;
+    vertical-align: top;
+  }
+  ol,
+  ul,
+  li {
+    list-style: none;
+  }
+  body,
+  div,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  span,
+  a,
+  em,
+  i {
+    font-weight: normal;
+  }
+  input,
+  button {
+    border: none;
+    outline: none;
+    border-radius: initial;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+  }
+  a {
+    color: #333;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+    background: none;
+    text-decoration: none;
+  }
+  a:focus {
+    -webkit-tap-highlight-color: transparent!important;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    outline: none;
+    background: none;
+    text-decoration: none;
+  }
+  i,
+  em {
+    font-style: normal;
+  }
+  select::-ms-expand {
+    display: none;
+  }
+  /* 去除Chrome等浏览器文本框默认发光边框 */
+  input:focus,
+  textarea:focus {
+    outline: none;
+  }
+  /* 禁止多行文本框textarea拖拽 */
+  textarea {
+    resize: none;
+  }
+  /*全部英文字符下自动换行*/
+  p {
+    word-break: break-all;
+  }
+  
+  /* 禁止长按链接与图片弹出复制图片菜单 */
+  a,
+  img {
+    -webkit-touch-callout: none;
+  }
+  /*禁止长按复制*/
+  /*在 iOS 上，输入框默认有内部阴影 清除输入框内阴影*/
+  input,
+  textarea {
+    border: 0;
+    /* 方法1 */
+    -webkit-appearance: none;
+    /* 方法2 */
+  }
+  /*弹性滑动*/
+  .naative-auto {
+    overflow: auto;
+    /* auto | scroll */
+    -webkit-overflow-scrolling: touch;
+  }
+  /*单行省略......*/
+  .dwote {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+  }
+  /*多行行省略......*/
+  .dwwo-2 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+  }
+  .dwwo-3 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+  }
+  /*css修改placeholder的颜色*/
+  ::-webkit-input-placeholder {
+    color: #a3abb8;
+  }
+  :-moz-placeholder {
+    color: #a3abb8;
+  }
+  ::-moz-placeholder {
+    color: #a3abb8;
+  }
+  :-ms-input-placeholder {
+    color: #a3abb8;
+  }
+  /**/
+  /*浮动*/
+  .float-left {
+    float: left;
+  }
+  .float-right {
+    float: right;
+  }
+  .clear-float::after,
+  .clear-float::before {
+    content: "\200B";
+    display: block;
+    height: 0;
+    clear: both;
+  }
+  /*定位*/
+  .relative {
+    position: relative;
+  }
+  .absolute {
+    position: absolute;
+  }
+  .text-center{
+    text-align: center;
+  }
+  .bold{
+    font-weight:700;
+  }
+  .close-bold{
+    font-weight: normal!important;
+  }
