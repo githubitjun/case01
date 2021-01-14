@@ -188,3 +188,5 @@ APP 和h5 的交互:使用 DSBridge 作为桥接工具:git 地址: https://githu
 设计之窗的地址:  www.333cn.com
 		
 网站模板:http://sc.chinaz.com/moban/index.html
+
+科学上网的付费软件飞鱼: https://kk.myyuyu.me//

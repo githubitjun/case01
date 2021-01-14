@@ -50,6 +50,15 @@
     console.log(name)
   }
   get()
+
+
+  var x = 1;
+  if (function f() { }) {
+    // console.log(111);
+    x += typeof f;
+  }
+  console.log(x) //1undefined 原因: 函数写在运算符中,是为 true, 但是在执行阶段中,放在运算符中的的函数声明是找不到的,所以在
+                // 执行 typeof f 的时候找不到函数f 所以是undefined
 </script>
 
 </html>

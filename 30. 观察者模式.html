@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+  function EventEmitter() {
+    this.eventMap = new Map();
+    this.arrFn = [];
+    this.init();
+  }
+  EventEmitter.prototype = {
+    init() {
+      //alert(1);
+    },
+    on(name, fn) {
+      if (!this.eventMap.get(name)) {
+        var newArray = new Array();
+        newArray.push(fn);
+        this.eventMap.set(name, newArray);
+      } else {
+        var oddArray = this.eventMap.get(name);
+        oddArray.push(fn);
+        this.eventMap.set(name, oddArray);
+      }
+    },
+    emit(name, val) {
+      if (!this.eventMap.get(name)) {
+        return;
+      } else {
+        this.arrFn = this.eventMap.get(name);
+        for (var i = 0, fn; fn = this.arrFn[i++];) {
+          fn(val);
+        }
+      }
+
+    },
+    off(name, fn) {
+      if (!fn) {
+        this.eventMap.delete(name);
+      } else {
+        this.arrFn = this.eventMap.get(name);
+        var newArray = new Array();
+        for (var i in this.arrFn) {
+          if (this.arrFn[i] != fn) {
+            newArray.push(this.arrFn[i]);
+          }
+        }
+        this.eventMap.set(name, newArray);
+      }
+    }
+  }
+  //测试
+  function fn(val) {
+    console.log("Tom" + val);
+  }
+  function fn1(val) {
+    console.log("Mary" + val);
+  }
+  function fn2(val) {
+    console.log("Jack" + val);
+  }
+  var emitter = new EventEmitter();
+  emitter.on("change", fn); // 添加事件
+  emitter.on("change", fn1);
+  emitter.on("change", fn2);
+  emitter.off("change", fn1); //移除事件
+  emitter.emit("change", 123); // 触发事件
+
+</script>
+
+</html>

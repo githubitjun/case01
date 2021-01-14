@@ -72,3 +72,22 @@
 	<div contenteditable="true"></div>
 	不过通过这个属性把标签变为可编辑状态后只有 input 事件，没有 change 事件。
 	也不能像表单一样通过 maxlength 控制最大长度。我也忘记我在什么情况下用到过了，后面想起来再补吧。
+	
+12.自定义多行文本溢出
+	推荐两个封装好的组件
+	HeyUI：https://www.heyui.top/component/other/textellipsis[5]
+	vue-text-ellipsis：https://github.com/Luobata/vue-text-ellipsis[6]
+
+13./*
+    一.vue 中的性能优化
+      01. v-if 和 v-show 分情况合理的使用
+      02.避免v-for 和 v-if 同时使用
+      03.v-for 中的key 值 避免使用数组中的index, 最好使用 数据中的唯一id 
+      04.释放组件资源,比如 在beforeDestroy钩子函数中清除定时器
+      05.长列表数据的渲染,首先使用懒加载,触底加载事件,或者使用插件vue-virtual-scroller 可以实现vue 可视区的渲染
+      06.ui框架的使用的时候,使用组件的按需加载
+
+    二.监听vue的生命周期钩子
+      <!--通过@hook:updated监听组件的updated生命钩子函数-->
+      <!--组件的所有生命周期钩子都可以通过@hook:钩子函数名 来监听触发-->
+  */

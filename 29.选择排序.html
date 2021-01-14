@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+  /**
+    选择排序
+  */ 
+  function selectionSort(){
+    let arr = [2,1,4,11,7,99,88]
+    let arrLen = arr.length
+    let index;
+    for(let i = 0;i < arrLen-1;i++){
+        index = i
+        // 注意j 的值要从i+1 开始 因为i 及之前的已经是最小的,属于有序的 不能重复循环
+        for(let j = i+1;j<arrLen;j++){
+          if(arr[j]<arr[index]){
+            index = j // 找到最小
+          }
+        }
+        let temp = arr[i]
+        arr[i] = arr[index]
+        arr[index] = temp
+    }
+    return arr
+  }
+  console.log(selectionSort())
+  
+  // 从两边排序
+  function liangSort(){
+    let arr = [66,2,1,4,11,7,99,88,55,100]
+    let len = arr.length
+    let start = 0 
+    while(start < len){
+      for(let i = start;i< len;i++){
+          if (arr[i] > arr[i+1]) { // 正排找最大
+              let temp = arr[i]
+              arr[i] = arr[i+1]
+              arr[i+1] = temp 
+          }
+      }
+      ++start
+      for(let j = len; j > start;j--){
+        if (arr[j] < arr[j-1]) { // 反排找最小
+          let temp = arr[j]
+          arr[j] = arr[j-1]
+          arr[j-1] = temp 
+        }
+      }
+      --len
+    }
+    console.log(arr);
+  }
+  liangSort()
+</script>
+</html>
