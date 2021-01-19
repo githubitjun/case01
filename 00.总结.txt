@@ -139,7 +139,8 @@ js相关
 		这个时候就要使用 e.srcElement.value = ""//及时清空 就可以解决
 	09.只能输入数字,能输小数点.
 	<input onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')"> onkeyup”是指按键抬起触发,“onafterpaste”是指粘贴后打开
-		
+	10.在ios 中通过将输入框失去焦点的操作可以关闭软键盘的弹起
+	
 严格模式的主要限制
 		变量必须声明后再使用
 		函数的参数不能有同名属性，否则报错
