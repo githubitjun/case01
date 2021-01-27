@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="body">
+
+  </div>
+</body>
+<script>
+  //1. 实现一个render()函数 实现虚拟dom
+  // 例如：
+  // let domNode = {
+  //   tagName: 'ul',
+  //   props: {
+  //     class: 'list list1 list2',
+  //     wwww: '3333'
+
+  //   },
+  //   children: [{
+  //     tagName: 'li',
+  //     children: ['item1']
+  //   }, {
+  //     tagName: 'li',
+  //     children: ['item1']
+  //   }]
+  // };
+  // // 构建一个 render 函数，将 domNode 对象渲染为 以下 dom
+  // // <ul class="list">
+  // //     <li>item1</li>
+  // //     <li>item2</li>
+  // // </ul>
+  // function render(domNode) {
+  //   // 当参数为空时直接返回 
+  //   if (!domNode) {
+  //     // 为空时直接返回创建一个空的节点对象 (createDocumentFragment()创建一个虚拟的节点包含所有节点属性和方法)
+  //     return document.createDocumentFragment()
+  //   }
+  //   // 声明根dom
+  //   let $el
+  //   // 判断参数是不是对象
+  //   if (typeof domNode === 'object') {
+  //     // 利用 cerateElement() 创建标签
+  //     $el = document.createElement(domNode.tagName)
+  //     // 判断是否有props
+  //     // 判断object 上面是否有这个属性 我们使用 hasOwnProperty('method')方法 (查看method是不是在这个对象中存在,但是不会去原型上面去查,只会去对象本身上面查看)
+  //     if (domNode.hasOwnProperty('props')) {
+  //       // 如果有遍历创建自定义属性设置到$el 上面
+  //       // props 是对象需要用for in 遍历
+  //       for (let key in domNode.props) {
+  //         $el.setAttribute(key, domNode.props[key])
+  //       }
+  //     }
+  //     // 判断是否有children 
+  //     // 判断object 上面是否有这个属性 我们使用 hasOwnProperty('method')方法 (查看method是不是在这个对象中存在,但是不会去原型上面去查,只会去对象本身上面查看)
+  //     if (domNode.hasOwnProperty('children')) {
+  //       // 如果有需要用递归遍历 并挂在到$el的子元素下面
+  //       // domNode.children 是数组需要遍历 一一进行添加
+  //       domNode.children.forEach(item => {
+  //         // let $childrenEl = render(item)
+  //         //    $el.appendChild( $childrenEl)
+  //         // 上面和下面写法效果一样
+  //         $el.appendChild(render(item))
+  //       })
+
+  //     }
+  //   } else {
+  //     //如果不是对象 直接生成文本(这里没又考虑其他可能的情况)
+  //     $el = document.createTextNode(domNode)
+  //   }
+  //   // 最后返回 $el
+  //   return $el
+  // }
+  // //使用 render() 生成dom元素后添加到 body 里面
+  // document.getElementById('body').appendChild(render(domNode))
+  // --------------------------------------------------------------------------------------------------------
+  // 2.解析url
+  // let url = 'http://www.domain.com/?user=anonymous&id=123&id=456&city=%E5%8C%97%E4%BA%AC&enabled';
+  // console.log(parseParam(url))
+  /* 结果
+  { user: 'anonymous',
+    id: [ 123, 456 ], // 重复出现的 key 要组装成数组，能被转成数字的就转成数字类型
+    city: '北京', // 中文需解码
+    enabled: true, // 未指定值得 key 约定为 true
+  }
+  */
+  //  自己
+  // function parseParam(url) {
+  //   // 以 ? 分割获取到参数字符串 
+  //   // 再以& 进行分割 
+  //   // 得到所有参数 key=value 类型数组
+  //   let params = url.split('?')[1].split('&')
+  //   // 声明参数对象
+  //   let paramsObj = {}
+  //   // 遍历数组添加和过滤相同属性
+  //   params.forEach(item => {
+  //     // 判断参数对象中是否又该属性,有就把参数值变为数组
+  //     // 可以用结构语法 更简洁
+  //     let key = item.split('=')[0]
+  //     let value = item.split('=')[1] ? decodeURIComponent(item.split('=')[1]) : true
+  //     // paramsObj.hasOwnProperty(key) 更严谨
+  //     if (paramsObj[key]) {
+  //       // 把原有的改为数组 或者展开
+  //       let arr = typeof paramsObj[key] === 'string' ? [paramsObj[key]] : [...
+  //         paramsObj[key]
+  //       ]
+  //       arr.push(value)
+  //       paramsObj[key] = arr
+  //     } else {
+  //       // 没有 直接添加属性和值
+  //       paramsObj[key] = value
+  //     }
+  //   })
+  //   // 返回 参数对象
+  //   return paramsObj
+  // }
+  // // 别人
+  // function parseParam(url) {
+  //   const paramsStr = /.+\?(.+)$/.exec(url)[1]; // 将 ? 后面的字符串取出来
+  //   const paramsArr = paramsStr.split('&'); // 将字符串以 & 分割后存到数组中
+  //   let paramsObj = {};
+  //   // 将 params 存到对象中
+  //   paramsArr.forEach(param => {
+  //     if (/=/.test(param)) { // 处理有 value 的参数
+  //       let [key, val] = param.split('='); // 分割 key 和 value
+  //       val = decodeURIComponent(val); // 解码
+  //       val = /^\d+$/.test(val) ? parseFloat(val) : val; // 判断是否转为数字
+  //       if (paramsObj.hasOwnProperty(key)) { // 如果对象有 key，则添加一个值
+  //         paramsObj[key] = [].concat(paramsObj[key], val);
+  //       } else { // 如果对象没有这个 key，创建 key 并设置值
+  //         paramsObj[key] = val;
+  //       }
+  //     } else { // 处理没有 value 的参数
+  //       paramsObj[param] = true;
+  //     }
+  //   })
+  //   return paramsObj;
+  // }
+  // -------------------------------------------------------------------------
+  // 3.实现一个类似模板字符串功能
+  let template = '我是{{name}}，年龄{{age}}，性别{{sex}}';
+  let data = {
+    name: '姓名',
+    age: 18
+  }
+  render(template, data); //渲染结果 我是姓名，年龄18，性别undefined
+  // 正则太垃圾,学习下别人的
+  function render(template, data) {
+    const reg = /\{\{(\w+)\}\}/; // 模板字符串正则
+    if (reg.test(template)) { // 判断模板里是否有模板字符串
+      const name = reg.exec(template)[1]; // 查找当前模板里第一个模板字符串的字段
+      template = template.replace(reg, data[name]); // 将第一个模板字符串渲染
+      return render(template, data); // 递归的渲染并返回渲染后的结构
+    }
+    return template; // 如果模板没有模板字符串直接返回
+  }
+</script>
+
+</html>

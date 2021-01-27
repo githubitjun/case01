@@ -1,33 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
 </head>
+
 <body>
-    <script>
-        // for(var i =0;i< 5;i++){
-        //     (function(i){
-        //         setTimeout(()=>{
-        //             console.log(i)
-        //         },Math.random()*3000)
-        //     })(i)
-        // }    
-        
-        function recuurTest (i,length){
-            setTimeout(()=>{
-                console.log(i+1)
-                if(++i <length ){
-                    recuurTest(i,length)
-                }else {
-                    console.log("异步结束了")
-                }
-            },Math.random()*3000)
+  <script>
+    // for(var i =0;i< 5;i++){
+    //     (function(i){
+    //         setTimeout(()=>{
+    //             console.log(i)
+    //         },Math.random()*3000)
+    //     })(i)
+    // }    
+
+    function recuurTest(i, length) {
+      setTimeout(() => {
+        console.log(i + 1)
+        if (++i < length) {
+          recuurTest(i, length)
+        } else {
+          console.log("异步结束了")
         }
-        recuurTest(0,5)
-        
-    </script>
+      }, Math.random() * 3000)
+    }
+    recuurTest(0, 5)
+
+
+    var interval = null; // 定时器的id
+    var inTime = 200; //定时器执行的时间间隔
+    var luckLiArr = $('#luck-lott-ul li');
+    var luckIndex = -1; // 当前转动到哪个位置，起点位置
+    var luckCycle = 50; //转动基本次数次数
+    var luckTimes = 0; //已转动次数
+    var luckprize = -1; //中奖位置
+
+    /**
+     * 开始旋转
+     */
+    function whirkLuckBtn() {
+      startRoll();
+    }
+
+    /**
+     * 开始转动
+     */
+    function startRoll() {
+      luckTimes += 1; // 转动次数
+      oneRoll();
+      // 如果当前转动次数达到要求 && 目前转到的位置是中奖位置
+      if (luckTimes > luckCycle + 20 && luckprize == luckIndex) {
+        clearTimeout(interval);
+        // 中奖了
+        // 初始化数据
+        luckCycle = 50; //转动基本次数次数
+        luckTimes = 0; //已转动次数
+        luckprize = -1; //中奖位置
+        inTime = 200; //定时器执行的时间间隔
+        return;
+      } else {
+        if (luckTimes < luckCycle) {
+          inTime -= 10; // 加快转动速度
+        } else if (luckTimes == luckCycle) {
+          // 随机生成中奖位置
+          var index = parseInt(Math.random() * 10) || 0;
+          luckprize = index;
+          if (index > 7) {
+            luckprize = 7;
+          }
+        } else if (
+          luckTimes > luckCycle + 10 &&
+          ((luckprize == 0 && luckIndex == 7) || luckprize == luckIndex + 1)
+        ) {
+          inTime += 110;
+        } else {
+          inTime += 20;
+        }
+        if (inTime < 40) {
+          inTime = 40;
+        }
+        interval = setTimeout(startRoll, inTime);
+      }
+    }
+
+    /**
+     * 转动方法
+     */
+    function oneRoll() {
+      luckIndex++;
+      if (luckIndex > 7) {
+        luckIndex = 0;
+        $(luckLiArr[7]).find('.check-bord').remove();
+      }
+      // $(luckLiArr[luckIndex]).addClass('check-bord');
+      $(luckLiArr[luckIndex]).append('<div class="check-bord"></div>');
+      $(luckLiArr[luckIndex - 1]).find('.check-bord').remove();
+    }
+
+  </script>
 </body>
+
 </html>

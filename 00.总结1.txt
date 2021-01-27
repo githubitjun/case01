@@ -23,7 +23,7 @@
 	 * 导航守卫的执行的先后顺序 
 	 * 先是 全局的前置路由守卫 beforeEach ----> 然后是路由独享的守卫 beforeEnter -----> 然后是组件内的 beforeRouteEnter 当前组件不能
 	 * 访问到this 实例 可以使用 next(vm=>{}) 回调
-	 * ----> 然后就是全局的解析守卫 beforeResolve -----> 然后是全局的后置路由守卫 afterEach ---> dom更新 ---> 最后会是 beforeRouteEnter 守卫
+	 * ----> 然后就是全局的解析守卫 beforeResolve -----> 然后是全局的后置路由守卫 afterEach ---> dom更新(生命周期执行) ---> 最后会是 beforeRouteEnter 守卫
 	 * 中使用的 next(vm=>{}) 的回调函数执行, 创建好的组件实例会作为回调函数的参数传入
 	 * 
 	 * 当组件失活时会调用  组件内的 beforeRouteLeave 导航离开该组件时调用
@@ -91,3 +91,6 @@
       <!--通过@hook:updated监听组件的updated生命钩子函数-->
       <!--组件的所有生命周期钩子都可以通过@hook:钩子函数名 来监听触发-->
   */
+  
+14.https://mp.weixin.qq.com/s/brIUk8kgiSItG9DWECu2ew 可能会忽略的事件API 
+15. https://juejin.cn/post/6844903906024095751  vue 路由实现的原理

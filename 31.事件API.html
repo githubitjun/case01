@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+  document.addEventListener("DOMContentLoaded",function(){
+    console.log('dom ready'); //  DOMContentLoaded这个事件 加载完毕就会执行
+  })
+  window.onload = function(){
+    console.log('window onload') // 页面静态资源全部加载完毕
+  }
+  window.onbeforeunload  = function(){
+    
+    return false
+  }
+  if (document.readyState =='loading') {
+      console.log('文档正在被加载');
+  }else if (document.readyState =='interactive') {
+      console.log('文档被全部读取');
+  }else if(document.readyState == 'complete') {
+    console.log('文档被全部读取,包括静态资源');
+  }
+
+  // instanceof  的原理
+  function myInstanceof(left,right){
+    if (typeof right !== 'function') {
+    
+      return false
+    }
+    if (!left || (typeof left !== 'object' && typeof left !== 'function' )) {
+     
+      return false
+    }
+    let leftProto = left.__proto__
+    while(leftProto){
+      if (leftProto === right.prototype) {
+          return true
+      }
+      leftProto = leftProto.__proto__
+    }
+    return false
+  } 
+  var obj = {}
+  console.log(myInstanceof(obj,Object))
+  
+  
+  
+</script>
+</html>

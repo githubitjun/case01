@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+  /*
+    1.函数的length 属性 
+      指定了默认值以后,函数length 属性,将返回没有指定默认值的的参数的个数,
+      也就是说指定了默认值后,length 属性将失真.rest 参数也不会计入length属性。
+      如果设置了默认值的参数不是尾参数，那么length属性也不再计入后面的参数了。
+
+    2. 箭头函数的不适合场所
+      01.第一个场合是定义对象的方法，且该方法内部包括this。
+            const cat = {
+              lives: 9,
+              jumps: () => {
+                this.lives--; // 这样写会导致this 指向的是window, 而不是对象自己的this
+              }
+            }
+      02.第二个场合是需要动态this的时候，也不应使用箭头函数。
+            var button = document.getElementById('press');
+              button.addEventListener('click', () => {
+                this.classList.toggle('on'); // 上面代码运行时，点击按钮会报错，因为button的监听函数是一个箭头函数，
+                                              导致里面的this就是全局对象。如果改成普通函数，this就会动态指向被点击的按钮对象。
+              });
+    2.super 关键字 
+      this关键字总是指向函数所在的当前对象，ES6 又新增了另一个类似的关键字super，指向当前对象的原型对象。
+
+    3.Symbol函数前不能使用new命令，否则会报错。这是因为生成的 Symbol 是一个原始类型的值不是对象。
+      也就是说，由于 Symbol 值不是对象，所以不能添加属性。基本上，它是一种类似于字符串的数据类型。
+
+    4.Object.getOwnPropertyNames() 返回一个对象的所有属性 包括不可枚举属性但不包括Symbol 属性
+    5.Set的遍历顺序就是插入顺序。这个特性有时非常有用，比如使用 Set 保存一个回调函数列表，调用时就能保证按照添加顺序调用。
+      由于 Set 结构没有键名，只有键值（或者说键名和键值是同一个值），所以keys方法和values方法的行为完全一致。
+      WeakSet 的成员只能是对象，而不能是其他类型的值。
+      垃圾回收机制依赖引用计数，如果一个值的引用次数不为0，垃圾回收机制就不会释放这块内存。
+
+  */
+
+</script>
+</html>

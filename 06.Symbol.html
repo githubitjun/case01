@@ -103,5 +103,18 @@
     //     }
     // }
     // logTime()
+
+    class Person {
+      constructor(){
+        console.log('person');
+      }
+    }
+    class Child extends Person {
+      constructor(){
+        console.log('child');
+        super()
+      }
+    }
+    new Child()
 </script>
 </html>
