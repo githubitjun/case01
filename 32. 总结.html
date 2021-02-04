@@ -41,7 +41,45 @@
       WeakSet 的成员只能是对象，而不能是其他类型的值。
       垃圾回收机制依赖引用计数，如果一个值的引用次数不为0，垃圾回收机制就不会释放这块内存。
 
-  */
+    6.export default命令用于指定模块的默认输出。显然，一个模块只能有一个默认输出，因此export default命令只能使用一次。
+      所以，import命令后面才不用加大括号，因为只可能唯一对应export default命令。
+      本质上，export default就是输出一个叫做default的变量或方法，然后系统允许你为它取任意名字
+              
 
+  */
+  /*
+    腾讯面试真题: https://mp.weixin.qq.com/s/KDR_5N_YU5AOo5AsHhOPdg
+
+    1.前端需要注意哪些 SEO
+       合理的 title、description、keywords：搜索对着三项的权重逐个减小，title 值强调重点即可，重要关键词出现不要超过 2 次，而且要靠前，不同页面 title 要有所不同；description 把页面内容高度概括，长度合适，不可过分堆砌关键词，不同页面 description 有所不同；keywords 列举出重要关键词即可
+      语义化的 HTML 代码，符合 W3C 规范：语义化代码让搜索引擎容易理解网页
+      重要内容 HTML 代码放在最前：搜索引擎抓取 HTML 顺序是从上到下，有的搜索引擎对抓取长度有限制，保证重要内容一定会被抓取
+      重要内容不要用 js 输出：爬虫不会执行 js 获取内容
+      少用 iframe(搜索引擎不会抓取 iframe 中的内容)
+      非装饰性图片必须加 alt
+      提高网站速度(网站速度是搜索引擎排序的一个重要指标) 
+
+    2.实现一个页面操作不会整页刷新的网站，并且能在浏览器前进、后 退时正确响应。给出你的技术实现方案？
+      第一步，通过使用 pushState + ajax 实现浏览器无刷新前进后退，当一次 ajax 调用成功后我们将一 条 state 记录加入到 history 对象中。
+
+      第二步，一条 state 记录包含了 url、title 和 content 属性，在 popstate 事件中可以 获取到这个 state 对象，我们可 以使用 content 来传递数据。第三步，我们通过对 window.onpopstate 事件监听来响应浏览器 的前进后退操作。
+
+      使用 pushState 来实现有两个问题，一个是打开首页时没有记录，我们可以使用 replaceState 来将首页的记录替换，另一个问 题是当一个页面刷新的时候，仍然会向服务器端请求数据，因此如果请求的 url 需要后端的配 合将其重定向到一个页面。
+
+      更多参考：http://blog.chenxu.me/post/detail?id=ed4f0732-897f-48e4-9d4f-821e82f17fad
+
+    3.如何优化SPA应用的首屏加载速度慢的问题？
+      将公用的JS库通过script标签外部引入，减小app.bundel的大小，让浏览器并行下载资源文件，提高下载速度；
+      在配置 路由时，页面和组件使用懒加载的方式引入，进一步缩小 app.bundel 的体积，在调用某个组件时再加载对应的js文件；
+      root中插入loading 或者 骨架屏 prerender-spa-plugin，提升用户体验；
+      如果在webview中的页面，可以进行页面预加载
+      独立打包异步组件公共 Bundle，以提高复用性&缓存命中率
+      静态文件本地缓存，有两种方式分别为HTTP缓存，设置Cache-Control，Last-Modified，Etag等响应头和Service Worker离线缓存
+      配合 PWA 使用
+      SSR
+      root中插入loading 或者 骨架屏 prerender-spa-plugin
+      使用 Tree Shaking 减少业务代码体积 更多参考：https://github.com/LuckyWinty/fe-weekly-questions/issues/69
+              
+  */
 </script>
 </html>

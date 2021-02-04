@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .box {
+      background-color: orange;
+      line-height: 200px;
+      width: 300px;
+    }
+
+    .center {
+      background-color: green;
+      line-height: 20px;
+      display: inline-block;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box" style="display: none;">
+    <div class="center">
+      虽然你们是扮演路人甲乙丙丁，但是一样是有生命、有灵魂的。
+    </div>
+  </div>
+</body>
+<script>
+  // 1.求两个数组的交集
+
+  /*
+  let arr1 = [2,3,4,2]
+  let arr2 = [2,4,5]
+
+  function interMap(arr){
+    let map = new Map()
+    for (const item of arr) {
+        if(map.has(item)){
+          map.set(item,map.get(item)+1)
+        }else {
+          map.set(item,1)
+        }
+    }
+    return map
+  }
+  function intersectionSort(arr1,arr2){
+    let map1 = interMap(arr1)
+    let map2 = interMap(arr2)
+    let interArray = []
+    for(const item of map1.keys()){
+      if (map2.has(item)) {
+        let num1 = map1.get(item)
+        let num2 = map2.get(item)
+        let len = Math.min(num1,num2)
+        for(let i = 0; i< len;i++){
+          interArray.push(item)
+        }
+      }
+    }
+    return interArray
+  }
+  console.log(intersectionSort(arr1,arr2)) //[2,4]
+  */
+
+
+  /*
+   2.写一个 mySetInterVal(fn, a, b),每次间隔 a,a+b,a+2b 的时间，然后写一个 myClear，停止上面的 mySetInterVal
+ */
+  /*
+   let interTimeId = null
+   function mySetInterVal(fn, a, b) {
+     let interArr = [a, a + b, a + 2 * b]
+     let intIndex = 0
+     let _setInterVal = function (time) {
+       if (intIndex < interArr.length) {
+         clearInterval(interTimeId)
+         interTimeId = setInterval(() => {
+           fn()
+           intIndex++
+           _setInterVal(interArr[intIndex])
+         }, time)
+       } else {
+         intIndex = 0
+         _setInterVal(interArr[intIndex])
+       }
+     }
+     _setInterVal(interArr[intIndex])
+   }
+   let interval = mySetInterVal(() => {
+     console.timeEnd('定时器')
+     console.time('定时器')
+   }, 1000, 1000)
+   */
+
+  // 实现发布订阅模式
+  class EventEmitter {
+    constructor() {
+      this.eventMap = new Map()
+    }
+    // 添加事件
+    on(eventName, fn) {
+      if (!this.eventMap.has(fn)) {
+        let eventArr = []
+        eventArr.push(fn)
+        this.eventMap.set(eventName, eventArr)
+      } else {
+        // 存在
+        let eventArr = this.eventMap.get(eventName)
+        eventArr.push(fn)
+        this.eventMap.set(eventName, eventArr)
+      }
+    }
+    // 触发事件
+    emit(eventName, value) {
+      if (!this.eventMap.has(eventName)) {
+        return
+      } else {
+        let eventArr = this.eventMap.get(eventName);
+        for (const fn of eventArr) {
+          fn(value)
+        }
+      }
+    }
+
+    off(eventName, fn) {
+
+      if (!fn) {
+        // 当没有指定函数的参数时, 就是将整个数组删除
+        this.eventMap.delete(eventName)
+      } else {
+        let eventArr = this.eventMap.get(eventName);
+        let newArr = []
+        for (const itemFn of eventArr) {
+          if (fn !== itemFn) {
+            newArr.push(itemFn)
+          }
+        }
+        this.eventMap.set(eventName, newArr)
+      }
+    }
+  }
+
+  //测试
+  function fn(val) {
+    console.log("Tom" + val);
+  }
+  function fn1(val) {
+    console.log("Mary" + val);
+  }
+  function fn2(val) {
+    console.log("Jack" + val);
+  }
+  var emitter = new EventEmitter();
+  emitter.on("change", fn); // 添加事件
+  emitter.on("change", fn1);
+  emitter.on("change", fn2);
+  emitter.off("change", fn1); //移除事件
+  emitter.emit("change", 123456); // 触发事件
+  emitter.on("change1", fn);
+  emitter.on("change1", fn1);
+  emitter.emit("change1", 789456); // 触发事件
+  console.log(emitter);
+</script>
+
+</html>
