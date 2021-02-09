@@ -35,6 +35,12 @@ Function.prototype.myBind = function(context){
    
     var fn = function(){
         that.call(context,...args,...arguments)
+
+    }
+    if (that.prototype) {
+      fn.prototype = Object.create(that.prototype)
+      // 设置原型是因为: fn 这个函数的原型是他自己的, 当我们之前that 这个
+      // 函数的原型修改过的话, 不指回去我们曾经修改的东西就没有了
     }
     return fn;
 }

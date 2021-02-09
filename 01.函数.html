@@ -16,18 +16,21 @@
     //  (function b(){
     //     b = 20
     //     console.log(b)
+    //     // 这里输出的是 函数b , 因为 b 首先访问的是自己的作用域的, 并且匿名只执行函数的函数名是不能被重新赋值的
     //  })()
 
 
     // function* gend(){
     //     yield "你好";
     //     yield "世界";
-    //     return "结束了"
+    //     return "结束了"  
     // }
     // let hel = gend()
-    // console.log(hel.next())
-    // console.log(hel.next())
-    // console.log(hel.next())
+    // console.log(hel.next()) //  {value: "你好", done: false}
+    // console.log(hel.next()) //  {value: "世界", done: false}
+    // console.log(hel.next()) //  {value: "结束了", done: true}
+
+
 
     // function* bar() {
     //     yield 'x';
@@ -54,32 +57,9 @@
     // console.log(g.next(true))
     // g.next(true) // { value: 0, done: false }
 
-    // function set(target, key, val) {
-    //     const ob = target.__ob__
-    //     if (Array.isArray(target) && key >= 0) {
-    //         target.length = Math.max(target.length, key)
-    //         target.splice(key, 1, val)
-    //         return val
-    //     }
-    //     if ((key in target && !(key in Object.prototype)) || !ob) {
-    //         target[key] = val
-    //         return val
-    //     }
-    //     if (target._isVue || (ob && ob.vmCount)) {
-    //         return val
-    //     }
-    //     defineReactive(ob.value, key, val)
-    //     ob.dep.notify()
-    //     return val
-    // }
-
-    // var arr = [1,2,3]
-    // for(const num of arr){
-    //     var sun = 0;
-    //     sun +=num;
-    // }
-    // console.log(sun)
-
+    
+    
+    // 实现函数每调用一次变量加一
     // 方法一 使用全局变量
     // let num = 1;
     // function Foo(){
@@ -171,6 +151,7 @@
     // console.log(obj.name) // foo (隐式绑定)
 
 
+    // 函数科里化
     // 定长参数
     // function add(a, b, c, d) {
     //     return [
@@ -179,9 +160,7 @@
     // }
 
     // function currying(fn) {
-        
     //     let len = fn.length
-    //     console.log(len)
     //     let args = []
     //     return function _c(...newArgs) {
     //         // 合并参数
@@ -240,12 +219,12 @@
     // console.log(day + "天" + hour + "时" + minu + "分"  + second + "秒")
     // }, 1000);
     
-    var arr = [1,2,3,4,5]
-    arr[4] = undefined
+    // var arr = [1,2,3,4,5]
+    // arr[4] = undefined
     
-    if(4 in arr){
-        console.log('在')
-    }
+    // if(4 in arr){
+    //     console.log('在')
+    // }
 </script>
 
 </html>

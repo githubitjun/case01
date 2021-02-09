@@ -12,11 +12,34 @@
 
 </body>
 <script>
+    // 构造函数的继承
+    function Person1 (){
+      this.name = 'person1'
+    }
+    Person1.prototype.say = function(){
+      console.log(this.name);
+    }
+
+    function Child1(){
+      Person1.call(this)  // 在子类构造函数调用父类构造函数
+      this.type1 = 'child1' 
+    }
+
+    let child1_1 = new Child1()
+    console.log(child1_1);
+    // console.log(child1_1.say()); //报错
+    // 缺点：无法继承原型链上的属性与方法；
+
+    
+
+
+    // 构造函数继承
     function SuperType() {
         this.color = ["red", "blue", "green"]
     }
     function SubChild() {
         SuperType.call(this)
+        // 现在一个构造函数里调用另外一个构造函数
     }
     var instancel1 = new SubChild()
     var instancel2 = new SubChild()
@@ -40,6 +63,8 @@
     }
     var anotherPerson = createAnother(person);
     anotherPerson.sayHi();
+
+   
 </script>
 
 </html>
