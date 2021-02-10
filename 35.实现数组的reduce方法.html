@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+  Array.prototype.myReduce = function (callback) {
+    const initVal = arguments[1] ? arguments[1] : '';// 获取第二个参数即默认值
+    const len = this.length;
+    // 判断没有默认值并且 是空数组就报错
+    if (!len && !initVal) {
+      throw Error('Reduce of empty array with no initial value')
+    }
+    // 判断是空数组不执行回调函数
+    if (!len) {
+      return initVal
+    }
+    let total = initVal ? initVal : this[0] // 是否有默认值, 没有就取索引0的值
+    let i = initVal ? 0 : 1
+    for (; i < len; i++) {
+      total = callback(total, this[i], i, this) // 每次执行回调返回的值赋值给total
+    }
+    return total
+  }
+  const arr = [1, 2, 3, 4, 5];
+
+  const total = arr.myReduce(function (total, item, index, arr) {
+    return total + item;
+  },20);
+  console.log(total); // expected results 15
+
+</script>
+
+</html>

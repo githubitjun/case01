@@ -16,16 +16,24 @@
       this.state = 'pending'
       this.value = undefined
       this.reason = undefined
+      this.successCallback = []
+      this.rejectCallback = []
       let resolve = (value) => {
         if (this.state === 'pending') {
           this.state = 'fulfilled'
           this.value = value
+          this.successCallback.forEach(function (item) {
+            item(value)
+          })
         }
       }
       let reject = (reason) => {
         if (this.state === 'pending') {
           this.state = 'rejected'
           this.reason = reason
+          this.rejectCallback.forEach(function (item) {
+            item(value)
+          })
         }
       }
 
@@ -35,24 +43,30 @@
         reject(err);
       }
     }
-    then(onFulfilled, onRejected){
-        if (this.state === 'fulfilled') {
-          let x = onFulfilled(this.value);
-        };
-        if (this.state === 'rejected') {
-          let x = onRejected(this.reason);
-        };
+    then(onFulfilled, onRejected) {
+      if (this.state === 'fulfilled') {
+        let x = onFulfilled(this.value);
+      };
+      if (this.state === 'rejected') {
+        let x = onRejected(this.reason);
+      };
+      if (this.state === 'pending') {
+        this.successCallback.push(onFulfilled)
+        this.rejectCallback.push(onRejected)
       }
+    }
   }
 
-  let p1 =new PromiseNew((resolve,reject)=>{
-      console.log(1);
-      resolve(2)
+  let p1 = new PromiseNew((resolve, reject) => {
+    setTimeout(function () {
+      resolve('这是异步的')
+    }, 1000)
   })
-  p1.then(res=>{
+  p1.then(res => {
     console.log(res);
   })
-  // 只能简单的模拟方法,并不能实现异步操作
+  // 实现异步的方式是将 在状态还是pending 的时候,先将要执行的函数存起来, 然后放在 resolve 或者 reject 函数中执行
+
 </script>
 
 </html>

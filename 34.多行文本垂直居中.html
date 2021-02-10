@@ -163,6 +163,29 @@
   emitter.on("change1", fn1);
   emitter.emit("change1", 789456); // 触发事件
   console.log(emitter);
+
+
+  // 找出字符串中最长子字符串
+  var str = 'anasnjfsakldad'
+  function lengthOfLongestSubstring(str) {
+    let index = -1;
+    let newStr = []
+    let obj = {}
+    for (let i = 0; i < str.length; i++) {
+      let num1 = newStr.indexOf(str[i])
+      newStr.push(str[i])
+      if (num1 !== -1) {
+        newStr = newStr.splice(num1 + 1)
+      }
+      index = Math.max(index, newStr.length)
+      if (!obj[index]) {
+        obj[index] = newStr.join('')
+      }
+    }
+    console.log(obj);
+    return index
+  }
+  console.log(lengthOfLongestSubstring(str));
 </script>
 
 </html>
