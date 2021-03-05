@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+    <script>
+        function addMothed(object,name,fnt){
+            var old = object[name]
+            // 始终把上一个的存起来 
+            object[name] = function(){
+                console.log(fnt.length);  // 第一次调用的时候就是使用的最后一次执行addMothed 的参数 
+                if (fnt.length === arguments.length) {  // 调用 methods.add 的时候 的参数是两个,第一次条件此时的 函数fnt的长度是4
+                    return fnt.apply(this,arguments)
+                }else if (typeof old === 'function'){
+                    // methods.add 的时候 的参数是两个, 所以会执行这里来 
+                    // 然后执行old 此时的old 是倒数第二次被存进来的 fnt  
+                    // old 和 fnt 被此函数引用着,所以不会被垃圾回收,形成了闭包, 
+                    // old 保持了对上一个执行 fnt 函数的引用,所以在这里执行 实际上就形成了一种递归
+                    return old.apply(this,arguments)
+                }
+            }
+        }
+        var methods = {
+            
+        }
+        
+        addMothed(methods,'add',function(){ return 0 })
+        addMothed(methods,'add',function(a,b,c){return a+b+c})
+        addMothed(methods,'add',function(a,b){return a+b})
+        addMothed(methods,'add',function(a,b,c,d){return a+b+c+d})
+
+        // console.log(methods.add);
+        console.log(methods.add(1,2));
+        // console.log(methods.add(1,2)); 
+    </script>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <ul id="listUl">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+    </ul>
+</body>
+<script>
+    !(function (root, doc) {
+        class Delegator {
+            constructor(selector) {
+                this.root = document.querySelector(selector);// 父级dom
+                this.delegatorEvents = {} // 代理元素及事件
+                // 代理逻辑
+                this.delegator = e => {
+                    let currentNode = e.target // 目标节点
+                    const targetEventList = this.delegatorEvents[e.type]
+                    // 如果当前目标节点等于事件当前所在的节点,不再向上冒泡
+                    while (currentNode !== e.currentTarget) {
+                        targetEventList.forEach(target => {
+                            if (currentNode.matches(target.matcher)) {
+                                target.callback.call(currentNode, e)
+                            }
+                        })
+                        currentNode = currentNode.parentNode;
+                    }
+                }
+            }
+            on(event, selector, fn) {
+                // 相同的事件 值添加一次, 如果存在,则在对应的事件代理里添加
+                if (!this.delegatorEvents[event]) {
+                    this.delegatorEvents[event] = [{
+                        matcher: selector,
+                        callback: fn
+                    }]
+                    this.root.addEventListener(event, this.delegator)
+                } else {
+                    this.delegatorEvents[event].push({
+                        matcher: selector,
+                        callback: fn
+                    })
+                }
+                return this
+            }
+            destory() {
+                Object.keys(this.delegatorEvents).forEach(eventName => {
+                    this.root.removeEventList(eventName, this.delegator)
+                })
+            }
+        }
+        root.Delegator = Delegator
+    }(window, document))
+
+    let delegator = new Delegator('#listUl')
+    delegator.on('click', 'li', function () {
+        console.log(this)
+    })
+</script>
+
+</html>

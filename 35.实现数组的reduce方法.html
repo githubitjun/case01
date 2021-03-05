@@ -36,6 +36,32 @@
   },20);
   console.log(total); // expected results 15
 
+  let obj = {
+    a:1,
+    fn1 : function(){
+      console.log(this.a);
+    },
+    fn2: ()=>{
+      console.log(this.a);
+    },
+    fn3 :(function(){
+      console.log(this.a);  // 报错了
+    }).bind(this)
+  }
+  obj.fn1()
+  obj.fn2()
+  obj.fn3()
+
+  console.log('-------')
+  var a = 0
+  if(true){
+    a = 1
+    function a (){}
+    a = 21
+    console.log(a);
+  }
+  console.log(a);
+
 </script>
 
 </html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    /*
+        深度优先遍历: 找到一个节点后,把它的后辈都找出来,最常见用递归法
+
+        广度优先遍历: 找到一个节点后,把它的同级的兄弟节点都找出来放在前面,把孩子放到后面,最常用while
+
+
+    */
+
+
+    var myTree = {
+        val: 6,
+        left: {
+            val: 5,
+            left: {
+                val: 4
+            },
+            right: {
+                val: 3
+            }
+        },
+        right: {
+            val: 2,
+            right: {
+                val: 1
+            }
+        }
+    }
+    function bfs(tree) {
+        var queue = [tree]
+        var res = []
+        var count = 0
+        while (queue[count] && queue[count].val) {
+            res.push(queue[count].val) // 找到这个值
+            var left = queue[count].left // 再找到这个值得兄弟
+            var right = queue[count].right // 再找到这个值得兄弟
+            if (left) {
+                queue.push(left) // 然后再放进队列中
+            }
+            if (right) {
+                queue.push(right) // 然后再放进队列中
+            }
+            count++
+        }
+        return res
+    }
+    console.log(bfs(myTree));
+
+
+    // 深度优先遍历 DFS
+    // 非递归版本
+    // 利用的是栈先进后出
+    function dfs (tree){
+        var stack = [tree]
+        var res = []
+        while(stack.length){
+            var node = stack.pop() // 从栈的最后面取出来也就是最上面
+            res.push(node.val)
+            var left = node.left
+            var right = node.right
+            if (right) {
+                stack.push(right) // 放进栈中
+            }
+            if (left) {
+                stack.push(left) // 放进栈中
+            }
+        }
+        return res
+    }
+    console.log(dfs(myTree));
+
+    
+</script>
+
+</html>

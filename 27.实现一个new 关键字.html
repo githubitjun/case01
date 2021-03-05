@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    function myNew(){
+        // 创建一个对象
+        let obj = Object.create({})
+        // 将this 指向这个对象
+        let fn = [].shift.call(arguments)
+        // shift() 方法从数组中删除第一个元素，并返回该元素的值。此方法更改数组的长度。  改变原数组
+        let returnObj = fn.apply(obj,arguments)
+        // 将新对象的原型指向构造函数的原型
+        // obj.__proto__ = fn.prototype 
+        let objProto = Object.getPrototypeOf(obj)  // 获取指定对象的原型
+        objProto  = fn.prototype
+        console.log(Object.getPrototypeOf(obj) === obj.__proto__); 
+        // 返回对象(如果构造函数有返回对象就返回构造函数的对象,如果没有就返回新对象)
+        return Object.prototype.toString.call(returnObj) =='[object Object]' ? returnObj : obj
+    }
+    function Fn(name){
+        this.name = name
+    } 
+
+ console.log(myNew(Fn,'张三'));
+</script>
+</html>

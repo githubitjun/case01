@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function myInstanceof(left,right){
+            if (typeof right !=='function') {
+                throw new Error('instance error')
+            }
+            if(!left || (typeof left !== 'object' && typeof left !== 'function')){
+                return false
+            }
+            let rightVal = right.prototype;
+            let leftVal = left.__proto__
+            while(leftVal){
+                if (leftVal === rightVal) {
+                    return true
+                }
+                leftVal = leftVal.__proto__
+            }
+            return false
+        }
+        var obj = {}
+       console.log(myInstanceof(function(){},Object))  //true
+    </script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        img {
+            display: block;
+            height: 450px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <img data-src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3363295869,2467511306&fm=26&gp=0.jpg"  alt="">
+    <img data-src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fa0.att.hudong.com%2F52%2F62%2F31300542679117141195629117826.jpg&refer=http%3A%2F%2Fa0.att.hudong.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1614078407&t=c4f7e833712c635486af1a7dab2607e8"alt="">
+    <img data-src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2853553659,1775735885&fm=26&gp=0.jpg"  alt="">
+    <img data-src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fs9.sinaimg.cn%2Fbmiddle%2F5ceba31bg5d6503750788&refer=http%3A%2F%2Fs9.sinaimg.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1614078407&t=b724a03a146e572c9ee9ee7724095b2f"  alt="">
+    <img  data-src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.aiimg.com%2Fuploads%2Fuserup%2F0909%2F2Z64022L38.jpg&refer=http%3A%2F%2Fimg.aiimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1614078407&t=b8edf3f166e1b942e7dec8d013a4c2c3"  alt="">
+    <img data-src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fa3.att.hudong.com%2F02%2F38%2F01300000237560123245382609951.jpg&refer=http%3A%2F%2Fa3.att.hudong.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1614078407&t=0846f2ffc3805ca67ab124352e40d8f4"  alt="">
+
+</body>
+<script>
+    var imgs = document.querySelectorAll('img')
+    function throttle(func,wait){
+        let timer = null
+        return function(...args){
+            if (timer) {
+                return   
+            }
+            timer = setTimeout(()=>{
+                func(...args)
+                timer = null
+            },wait)
+            // if (!timer) {
+            //     func(...args)
+            //     timer = setTimeout(()=>{
+            //         timer = null
+            //     },wait)
+            // }
+        }
+    }
+
+    function lazyLoad1(imgs){
+        function getTop(e){
+            // offsetTop 是元素与 offsetParent 的距离,循环获取只到页面顶部 
+            var T = e.offsetTop
+            while((e = e.offsetParent)){
+                T += e.offsetTop;
+            }
+            return T
+        }
+        var H = document.documentElement.clientHeight; //获取可是区域的高度
+        var S = document.documentElement.scrollTop || document.body.scrollTop;
+        Array.from(imgs).forEach(function(img){
+            
+            // +100 提前100 个像素就开始加载
+            // 并且只处理没有处理src 即没有加载过的图片
+         
+            if (H + S +100 > getTop(img) && !img.src) {
+                
+                img.src = img.dataset.src
+                // 通过 原生dom 的 img.dataset 属性可以获取到 dom 上面使用data-* = "" 来绑定的值 
+            }
+        })
+    }
+    const throttleLazyLoad1 = throttle(lazyLoad1,200)
+    
+    window.onload = window.onscroll = function(){
+        throttleLazyLoad1(imgs)
+    }
+</script>
+</html>

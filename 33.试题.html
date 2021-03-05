@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 输入 [1,5,6,9], 7
+    // 输出 [0,2]
+    var twoSum = function (target, num) {
+        let indexArr = []
+        for (let i = 0; i < target.length; i++) {
+            let num1 = num - target[i]
+            if (target.indexOf(num1) !== -1) {
+                indexArr.push(target.indexOf(num1))
+            }
+        }
+        return indexArr
+    };
+    twoSum([3, 4, 5, 9, 2], 9)
+
+    // steps[].step 步数
+    // steps[].timestamp 时间戳
+    const steps = [
+        { step: 1753, timestamp: 1597507200000 },
+        { step: 1637, timestamp: 1597593600000 },
+        { step: 6216, timestamp: 1597680000000 },
+        { step: 6466, timestamp: 1597766400000 },
+        { step: 12998, timestamp: 1597852800000 },
+        { step: 7731, timestamp: 1597939200000 },
+        { step: 7115, timestamp: 1598025600000 },
+        { step: 3603, timestamp: 1598112000000 },
+        { step: 1659, timestamp: 1598198400000 },
+        { step: 3582, timestamp: 1598284800000 },
+        { step: 6979, timestamp: 1598371200000 },
+        { step: 4567, timestamp: 1598457600000 },
+        { step: 7639, timestamp: 1598544000000 },
+        { step: 9150, timestamp: 1598630400000 },
+        { step: 8565, timestamp: 1598716800000 },
+        { step: 6544, timestamp: 1598803200000 },
+        { step: 6316, timestamp: 1598889600000 },
+        { step: 15523, timestamp: 1598976000000 },
+        { step: 8254, timestamp: 1599062400000 },
+        { step: 13552, timestamp: 1599148800000 },
+        { step: 6163, timestamp: 1599235200000 },
+        { step: 6338, timestamp: 1599321600000 },
+        { step: 8508, timestamp: 1599408000000 },
+        { step: 4002, timestamp: 1599494400000 },
+        { step: 7501, timestamp: 1599580800000 },
+        { step: 5922, timestamp: 1599667200000 },
+        { step: 9635, timestamp: 1599753600000 },
+        { step: 7067, timestamp: 1599840000000 },
+        { step: 3878, timestamp: 1599926400000 },
+        { step: 4088, timestamp: 1600012800000 },
+        { step: 773, timestamp: 1600099200000 }
+    ]
+
+   
+
+    function total(time1,time2,arr){
+        let d1 = new Date(time1)
+        let t1 = d1.getTime(d1) 
+        let d2 = new Date(time2)
+        let t2 = d2.getTime(d2) 
+        console.log(t1);
+        let totalNum = 0
+        arr.filter((item,index)=>{
+            if (item.timestamp >=t1 && item.timestamp <= t2) {
+                totalNum+= item.step
+            }
+        })
+        return totalNum
+    }
+    console.log(total('2020-09-01','2020-09-07',steps))
+</script>
+
+</html>

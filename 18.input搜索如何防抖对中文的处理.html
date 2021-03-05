@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+         .bdi {
+            color: rgb(0, 136, 255)
+        }
+
+        li {
+            list-style: none
+        }
+    
+    </style>
+</head>
+
+<body>
+    <input type="text" id="myinput">
+    <section>
+            <ul class="options">
+    
+            </ul>
+    
+        </section>
+    <hr>
+    <input type="text" id="jieinput">
+</body>
+<script>
+    function fangdou(timeout) {
+        var timer;
+        function input(e) {
+            console.log(e.target.composing);
+            if (e.target.composing) {
+                return
+            }
+            if (timer) {
+                clearTimeout(timer)
+            }
+            timer = setTimeout(() => {
+                console.log(e.target.value);
+                setList(e.target.value)
+                timer = null
+            }, timeout)
+        }
+        return input
+    }
+    document.querySelector('#jieinput').addEventListener('input',jieLiuTime(2000))
+
+    function jieLiu(timeout) {
+        var timeNum = Date.now()
+        return function input(e) {
+            if (Date.now() - timeNum > timeout) {
+                if (e.target.composing) {
+                    return
+                }
+                console.log(e.target.value);
+                timeNum = Date.now()
+            }
+        }
+    }
+    function jieLiuTime(timeout) {
+        var timeId = null
+        return function (e) {
+            if (!timeId) {
+                timeId = setTimeout(() => {
+                    if (e.target.composing) {
+                        return
+                    }
+                    console.log(e.target.value);
+                    timeId = null
+                }, timeout)
+            }
+
+        }
+    }
+    /*
+        在input 输入框里面适合使用防抖
+
+        可以使用节流 但是只能使用定时器书写的节流, 利用事件戳写的节流存在bug, 如果实在规定的
+            时间的 2s 内输入新的值,而停止输入 将不会触发input 事件,就不能让获取到最新输入的值
+    */
+
+
+    function onCompositionStart(e) {
+        e.target.composing = true
+    }
+    function onCompositionEnd(e) {
+        e.target.composing = false
+        var event = document.createEvent('HTMLEvents');
+        //document.createEvent用于创建事件  event 就是被创建的 Event 对象.
+        event.initEvent('input') // 定义事件名为'input'.
+        e.target.dispatchEvent(event) // 触发对象可以是任何元素或其他事件目标 这句代码是在触发 input_dom 的input 事件
+    }
+
+    var input_dom = document.getElementById('myinput');
+    input_dom.addEventListener('input', fangdou(200))
+    input_dom.addEventListener('compositionstart', onCompositionStart)
+    // 开始新的输入合成时会触发 compositionstart 事件。
+    input_dom.addEventListener('compositionend', onCompositionEnd)
+
+    //compositionstart 事件在用户开始进行非直接输入的时候触发，
+    //而在非直接输入结束，也即用户点选候选词或者点击「选定」按钮之后，会触发 compositionend 事件。
+
+    /*
+        input 事件会截断非直接输入，什么是非直接输入呢，在我们输入汉字的时候，
+        比如说「喜茶」，中间过程中会输入拼音，每次输入一个字母都会触发 input 事件，然而在没有点选候选字或者点击「选定」按钮前，都属于非直接输入。
+        这显然不是我们想要的结果，我们希望在直接输入之后才触发 input 事件，
+        这就需要引出我要说的两个事件—— compositionstart 和compositionend。
+    */
+
+
+    const list = ['上海', '上海市', '上海海昌海洋公园', '上海市徐汇区', '上海自来水来自水上']
+    function setList(value) {
+        const ul = document.querySelector('.options')
+        ul.innerHTML = ''
+        if (!value) {
+            ul.innerHTML = ""
+            return
+        }
+        list.forEach((item, index) => {
+            if (item.indexOf(value) !== -1) {
+                const li = document.createElement('li')
+                const innerHtml = item.replace(value, `<span style="color:red">${value}</span>`)
+                li.innerHTML = innerHtml
+                li.setAttribute('key', index)
+                ul.appendChild(li)
+            }
+        })
+    }
+</script>
+
+</html>

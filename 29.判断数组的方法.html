@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    /*
+        1.  instanceof 操作符判断  要是用来判断某个实例是否属于某个对象  判断该对象的原型链上面有没有 某个构造函数的原型
+        2.  对象构造函数的 constructor判断 
+        3.  Array 原型链上的 isPrototypeOf   用于测试一个对象是否存在于另一个对象的原型链上
+        4.  Object.getPrototypeOf 返回指定对象的原型
+        5.  Object.prototype.toString
+        6.  Array.isArray
+    */
+
+    function disorder(arr){
+        return Array.from(arr).sort(()=> Math.random() - 0.5 )
+    }
+    var arr = [1,2,3,4,5]
+    var arr2 = disorder(arr)
+    console.log(arr2);
+
+</script>
+</html>

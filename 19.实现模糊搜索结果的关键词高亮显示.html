@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .bdi {
+            color: rgb(0, 136, 255)
+        }
+
+        li {
+            list-style: none
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text" class="inp" >
+    <section>
+        <ul class="options">
+
+        </ul>
+
+    </section>
+</body>
+<script>
+    const list = ['上海', '上海市', '上海海昌海洋公园', '上海市徐汇区', '上海自来水来自水上']
+    function setList(value) {
+        const ul = document.querySelector('.options')
+        ul.innerHTML = ''
+        if (!value) {
+            ul.innerHTML = ""
+            return
+        }
+        list.forEach((item, index) => {
+            if (item.indexOf(value) !== -1) {
+                const li = document.createElement('li')
+                const innerHtml = item.replace(value, `<span style="color:red">${value}</span>`)
+                li.innerHTML = innerHtml
+                li.setAttribute('key', index)
+                ul.appendChild(li)
+            }
+        })
+    }
+
+    function search(e) {
+        const value = e.target.value
+        setList(value)
+    }
+    document.querySelectorAll('.inp')[0].addEventListener('input',search)
+</script>
+
+</html>

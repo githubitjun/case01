@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // 判断字符串是否存在另一个字符串  不存在返回-1  
+    // 比如 'asd'  在 'hfasdfa'   //2 
+
+    function isStrFn(aStr,bStr){
+        for(let i = 0;i < bStr.length;i++){
+            // 先判断 b 字符串中有没有 a 字符串的第一个元素, 如果第一个元素都不存在, 就是不包含直接返回
+
+            if (bStr[i] === aStr.charAt(0) ) {
+                let temp = true
+                // 当存在时, 就遍历a 中的元素 依次对应和 b 中第一个元素存在的位置后面元素比较
+                // 如果当  出现不存在的 情况就说明 字符不包含  
+                for(let j = 0; j < aStr.length;j++){
+                    if (aStr[j] !== bStr[j+i]) {
+                            return false
+                    }
+                }
+
+                if (temp) {
+                    return i
+                }
+            }
+        }
+
+        return -1 
+    }
+    console.log(isStrFn('asd','hfasdfa'));
+
+</script>
+</html>

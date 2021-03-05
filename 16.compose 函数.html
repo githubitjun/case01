@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    /**
+     * compose 函数是函数式编程中的一个非常重要的函数,它的作用是组合函数,将函数串联起来执行
+     * 将多个函数组合起来,一个函数的输出结果是另外一个函数的输入的参数
+     * 01. compose 函数的参数是函数,返回的也是一个函数
+     * 02. 除了第一个函数接受参数,其他函数接受的都是上一个函数的返回值,初始函数的参数是多远呢的,而其他函数是一元的
+     * 03. compose 函数的参数都是函数,且执行方向是自右向左,初始函数一定要放在参数的最右边 
+     */ 
+    // 递归实现
+    let greeting = (name)=> `hello ${name} `
+    let toUpper = (str) => str.toUpperCase()
+    let componse = function(...funs){
+        let len = funs.length
+        let count = len-1
+        let result = null;// 用来存储上一个函数的返回值
+        return function fn(...rest){
+            result = funs[count].apply(this,rest)
+            if (count <=0) {
+                // count = len -1
+                return result
+            }else {
+                count--
+                return fn.call(null,result)
+            }
+        }
+
+    }
+    let fn = componse(toUpper,greeting)
+    console.log(fn('yideng'));
+
+    // 找出一个字符串中连续的没有重复字符的最长子字符的长度
+    let str = 'abacdadeghjhwhra' // adeghj
+    function searchStr(str){
+        let strArr = []
+        let item;
+        let max = 0;
+        let obj = {}
+        for(let i = 0;i < str.length;i++){
+            let index = strArr.indexOf(str[i])
+            if (index === -1) {
+                // 不存在
+                strArr.push(str[i])
+            }else {
+                // 存在找到指定下标
+                strArr.splice(0,index+1)
+                strArr.push(str[i])
+            }
+            max = Math.max(strArr.length,max)
+            
+            if (!obj[max]) {
+                // 存储在对象里面就能找到出现次数最多的是哪一个
+                obj[max] = strArr.join('')
+            }
+        }
+        console.log(obj);
+        return max
+    }
+    console.log(searchStr(str))
+</script>
+</html>
